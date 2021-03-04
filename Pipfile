@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 gspread = "*"
+pandas = "*"
+gspread-dataframe = "*"
+oauth2client = "*"
+django = "*"
 
 [dev-packages]
 
