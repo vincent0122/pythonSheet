@@ -16,11 +16,18 @@ CRUD는 USER만 할거야.
 
 그러면 어플을
 users
-sales
-profit
-cost
-issues
-stocks
+sales 판매현황 비교 - plotly 그래프
+profit 거래처별, 아이템별 손익
+cost 거래처별, 아이템별 비용
+issues 거래처이슈데이터베이스
+stocks 얼마있지? 언제들어오지? 최근 얼마나 나갔지? + 시물레이터 + eta현황
+news 모두 따오고 그 중 일부는 전체 공개
 #items
 #customers
 plans
+
+20210317 admin을 할게 있나? 그냥 다 따와서 넣는건데?
+users
+gsheets 구글시트 가져오기
+news
+issues

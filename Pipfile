@@ -10,6 +10,8 @@ gspread-dataframe = "*"
 oauth2client = "*"
 django = "*"
 pillow = "*"
+python-dotenv = "*"
+airtable-python-wrapper = "*"
 
 [dev-packages]
 flake8 = "*"
