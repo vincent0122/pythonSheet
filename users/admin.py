@@ -7,5 +7,16 @@ class CustomUserAdmin(admin.ModelAdmin):
 
     """ Custom User Admin """
 
-    list_display = ("name", "position", "email", "company")
+    list_display = (
+        "first_name",
+        "email",
+        "position",
+        "company",
+        "superhost",
+        "is_staff",
+        "is_superuser",
+        "email_verified",
+        "email_secret",
+        "login_method",
+    )
     list_filter = ("company", "working_place")

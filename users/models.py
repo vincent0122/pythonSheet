@@ -1,5 +1,10 @@
+import uuid
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.core.mail import send_mail
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 
 
 class User(AbstractUser):
@@ -52,6 +57,16 @@ class User(AbstractUser):
         (WP_장산, "장산리"),
     )  # WP는 Working Place
 
+    LOGIN_EMAIL = "email"
+    LOGIN_GITHUB = "github"
+    LOGING_KAKAO = "kakao"
+
+    LOGIN_CHOICES = (
+        (LOGIN_EMAIL, "Email"),
+        (LOGIN_GITHUB, "Github"),
+        (LOGING_KAKAO, "Kakao"),
+    )
+
     company = models.CharField(
         choices=COMPANY_CHOICES, max_length=10, null=True, blank=True
     )
@@ -62,10 +77,16 @@ class User(AbstractUser):
     working_place = models.CharField(
         choices=WP_CHOICES, max_length=10, null=True, blank=True
     )
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(upload_to="avatars", blank=True, null=True)
     license = models.TextField(null=True, blank=True)
     children = models.IntegerField(null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
+    superhost = models.BooleanField(default=False)
+    email_verified = models.BooleanField(default=False)
+    email_secret = models.CharField(max_length=20, default="", blank=True)
+    login_method = models.CharField(
+        max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL
+    )
 
     def verify_email(self):
         if self.email_verified is False:

@@ -1,8 +1,9 @@
 {
-  "python.formatting.provider": "black",
-  "python.pythonPath": "/Users/vinc/.local/share/virtualenvs/pythonSheet-upNQHTij/bin/python",
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true,
-  "python.linting.flake8Args": ["--max-line-length==88"]
+	"python.formatting.provider": "black",
+	"python.pythonPath": "/Users/vinc/.local/share/virtualenvs/pythonSheet-upNQHTij/bin/python",
+	"python.linting.pylintEnabled": false,
+	"python.linting.flake8Enabled": true,
+	"python.linting.enabled": true,
+	"python.linting.flake8Args": ["--max-line-length==88"],
+	"css.customData": [".vscode/css_custom_data.json"]
 }

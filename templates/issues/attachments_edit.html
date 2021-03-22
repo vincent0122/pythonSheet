@@ -1,0 +1,12 @@
+<h5>첨부파일 :</h5>
+    {% for attach in attachments %}
+        <a href = {{attach}}> {{attach.0}}. {{attach.2}}</a>
+    {% endfor %}
+
+<h5>삭제</h5>
+<h5>몇번째 파일을 삭제하시겠습니까?</h5>
+<form method="get" action="{% url 'issues:attachments_del' %}">
+<input type="text" name="number" size="10"><br>
+<input type="text" name="ID" size="10" value={{ID}}><br>
+<input type="submit" value="삭제">
+</form>
