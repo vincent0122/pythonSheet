@@ -1,40 +1,12 @@
 {% extends "base.html" %} {% block content %} 
 
-{% for issue in issues %}
-{% endfor %} 
-
+{% if user.is_authenticated %}
+<form action="{% url 'issues:issue_create' %}" method="get">
 <h5>이슈를 입력하세요</h5><input type="text" name="issue" size="10">
 <h5>거래처</h5><input type="text" name="customer" size="10">
-<h5>첨부파일</h5><input type="text" name="customer" size="10">
+<h5>첨부파일</h5><input type="text" name="attachment" size="10">
+<input type="submit" value="작성"></form>
 
-<h5>수정</h5>
-<h5>삭제</h5>
-
-<form action="/" method="get">
-ID : <input type="text" value={{ID}} name="ID" size="10"><br>
-<input type="submit" value="가져오기"></form>
-
-<form method="get" action="{% url 'issues:edit' %}">
-ID : <input type="text" value={{ID}} name="ID" size="10">
-날짜 : <input type="text" value={{date}} name="date" onfocus="(this.type='date')" onblur="(this.type='text')" size="10">
-작성자 : <input type="text" value={{writer}} name="writer" size="10">
-거래처 : <input type="text" value={{customer}} name="customer" size="10">
-내용 : <textarea name="detail" size="10">{{detail}}</textarea><br>
-<input type="submit" value="변경">
-<input type="reset">
-</form>
-
-<h5>첨부파일 :</h5>
-    {% for attach in attachments %}
-        <a href = {{attach}}>{{attach.1}}</a>
-    {% endfor %}
-
-<form method="get" action="{% url 'issues:attachments_edit' %}">
-<input type="text" value={{ID}} name="ID" size="10"><br>
-<input type="submit" value="첨부파일 수정"></form>
-
-
-<iframe class="airtable-embed" src={{air_view}} frameborder="0" onmousewheel="" width="100%" height="700" style="background: transparent; border: 1px solid #ccc;"></iframe>
-
-    
+<h3><a href="{% url 'issues:issue_import' %}">기록 보기</a></h3>
+{% endif %}
 {% endblock content %}

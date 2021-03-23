@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %} 
+
+<form action="{% url 'issues:id_import' %}" method="get">
+ID : <input type="text" name="ID" size="10"><br>
+<input type="submit" value="가져오기"></form>
+
+{% if ID != None %}
+<form method="get" action="{% url 'issues:issue_edit' %}">
+ID : <input type="text" value={{ID}} name="ID" size="10">
+날짜 : <input type="text" value={{date}} name="date" onfocus="(this.type='date')" onblur="(this.type='text')" size="10">
+작성자 : <input type="text" value={{writer}} name="writer" size="10">
+거래처 : <input type="text" value={{customer}} name="customer" size="10">
+내용 : <textarea name="detail" size="10">{{detail}}</textarea><br>
+<input type="submit" value="변경">
+</form>
+
+<h5>첨부파일 :</h5>
+    {% for attach in attachments %}
+        <a href = {{attach}}>{{attach.1}}</a>
+    {% endfor %}
+
+<form method="get" action="{% url 'issues:attachments_edit' %}">
+<input type="text" value={{ID}} name="ID" size="10"><br>
+<input type="submit" value="첨부파일 수정"></form>
+{% endif %}
+
+<iframe class="airtable-embed" src={{air_view}} frameborder="0" onmousewheel="" width="100%" height="700" style="background: transparent; border: 1px solid #ccc;"></iframe>
+{% endblock content %}
+

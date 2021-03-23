@@ -13,7 +13,7 @@ class LoginView(FormView):
 
     template_name = "users/login.html"
     form_class = forms.LoginForm
-    success_url = reverse_lazy("core:intro")
+    success_url = reverse_lazy("core:create")
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -26,14 +26,14 @@ class LoginView(FormView):
 
 def log_out(request):
     logout(request)
-    return redirect(reverse("core:intro"))
+    return redirect(reverse("core:create"))
 
 
 class SignUpView(FormView):
 
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
-    success_url = reverse_lazy("core:intro")
+    success_url = reverse_lazy("core:create")
     initial = {"first_name": "Nicoas", "last_name": "Serr", "email": "itn@las.com"}
 
     def form_valid(self, form):
@@ -57,7 +57,7 @@ def complete_verification(request, key):
     except models.User.DoesNotExist:
         # to do: add error message
         pass
-    return redirect(reverse("core:intro"))
+    return redirect(reverse("core:create"))
 
 
 def kakao_login(request):
@@ -91,6 +91,7 @@ def kakao_callback(request):
             headers={"Authorization": f"Bearer {access_token}"},
         )
         profile_json = profile_request.json()
+        print(profile_json)
         kakao_account = profile_json.get("kakao_account")
         email = kakao_account.get("email")
         if email is None:
@@ -120,6 +121,6 @@ def kakao_callback(request):
                     save=True,
                 )
         login(request, user)
-        return redirect(reverse("core:intro"))
+        return redirect(reverse("core:create"))
     except KakaoException:
         return redirect(reverse("users:login"))
