@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} 
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5>이슈를 입력하세요</h5><input type="text" name="issue" size="10">
+            <h5>거래처</h5><input type="text" name="customer" size="10">
+            <div>
+            <h5>첨부파일</h5>
+                {{ file_form.as_p }}
+            </div>
+            <input type="submit" value="AIRTABLE 입력" class="submit" />
+        </form>
+    </div>
+<h3><a href="{% url 'issues:issue_import' %}">기록 보기</a></h3>
+  
+{% endblock content %}

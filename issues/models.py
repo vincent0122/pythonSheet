@@ -18,7 +18,7 @@ class IssueFile(models.Model):
 
     """ Issue File Model """
 
-    file = models.FileField(upload_to="files/")
+    file = models.FileField(upload_to="files/", blank=True)
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
 
     # def __str__(self):
