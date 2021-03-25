@@ -1,13 +1,25 @@
 from django.db import models
 from core import models as core_models
+from users.models import User
 
 
-class Issue(core_models.TimeStampedModel):
+class Issue(models.Model):
 
     """ Issue Model """
 
-    attachment1 = models.ImageField(upload_to="images", blank=True)
-    attachment2 = models.FileField(upload_to="files", blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(max_length=80, blank=True)
 
-    def __str__(self):
-        return self.caption
+    # def __str__(self):
+    #     return self
+
+
+class IssueFile(models.Model):
+
+    """ Issue File Model """
+
+    file = models.FileField(upload_to="files/")
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
+
+    # def __str__(self):
+    #     return self.caption

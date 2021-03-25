@@ -2,14 +2,16 @@ from django import forms
 from . import models
 
 
-class CreateForm(forms.Form):
+class AddForm(forms.ModelForm):
+    class Meta:
+        model = models.Issue
+        fields = ["text"]
 
-    attachment1 = forms.ImageField(required=False)
-    attachment2 = forms.FileField(required=False)
 
-    def save(self):
-        attachment1: self.cleaned_data.get("attachement1")
-        attachment2: self.cleaned_data.get("attachement2")
-
-        issue = models.Issue.objects.create(attachment1, attachment2)
-        issue.save()
+class FileFieldForm(forms.ModelForm):
+    class Meta:
+        model = models.IssueFile
+        fields = ["file"]
+        widgets = {
+            "file": forms.ClearableFileInput(attrs={"multiple": True}),
+        }
