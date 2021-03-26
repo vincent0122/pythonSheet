@@ -1,11 +1,9 @@
-<a href="{% url 'core:home' %}">Hanpel</a>
-<ul>
-    
-    {% if user.is_authenticated %}
-        <li><a href="{% url 'users:logout' %}">Log out</a></li>
-    {% else %}
-        <!-- <li><a href="{% url "users:login" %}">Log in</a></li> -->
-        {% include 'partials/social_login.html' %}
-        <!-- <li><a href="{% url "users:signup" %}">Sign up</a></li> -->
-    {% endif %}
+<ul class="flex items-center text-sm font-medium">
+	{% if user.is_authenticated %}
+	<li class="mx-8"><a href="{% url 'users:logout' %}">Log out</a></li>
+	{% else %}
+	<!-- <li><a href="{% url "users:login" %}">Log in</a></li> -->
+	<li class="mx-8">{% include 'partials/social_login.html' %}</li>
+	<!-- <li><a href="{% url "users:signup" %}">Sign up</a></li> -->
+	{% endif %}
 </ul>

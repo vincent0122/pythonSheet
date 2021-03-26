@@ -83,9 +83,7 @@ def issue_create(request):
 
     # 에어테이블 업로드 후, 삭제
 
-    return render(
-        request, "issues/issue_create.html", {"form": form, "file_form": file_form}
-    )
+    return render(request, "issues/issue_create.html", {"file_form": file_form})
 
 
 def issue_import(request):

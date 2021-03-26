@@ -1,18 +1,36 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %} 
+{% extends "base.html" %} {% load static %} 
 
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h5>이슈를 입력하세요</h5><input type="text" name="issue" size="10">
-            <h5>거래처</h5><input type="text" name="customer" size="10">
-            <div>
-            <h5>첨부파일</h5>
-                {{ file_form.as_p }}
-            </div>
-            <input type="submit" value="AIRTABLE 입력" class="submit" />
-        </form>
-    </div>
-<h3><a href="{% url 'issues:issue_import' %}">기록 보기</a></h3>
-  
+{% block page_title %}
+    Home
+{% endblock page_title %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+<div class="container lg:w-5/12 mx-auto">
+  <div class="flex flex-col text-center text-3xl h-1/2 mt-32">
+	<span class="text-5xl font-bold">이 슈</span>
+	<textarea class="max-w-5xl w-3/5 mx-auto mt-16 border-b border-gray-400 h-auto" type="text" name="issue" row="5"></textarea>
+  </div>
+
+<div class="flex flex-col mx-8 my-16 border border-gray-400 rounded-xl">
+	<div class="text-center py-4">
+	<i class="fas fa-desktop text-gray-500 text-sm mr-px"></i>
+	거래처
+	<input class="border-b border-gray-400 w-3/4 mx-8" type="text" name="customer" />
+	</div>
+	<div class="mx-2 my-2 pl-4 text-xs">{{ file_form }}</div>
+</div>
+	<div class="text-right mx-8 mt-4 mb-8">
+	<input class="border border-black bg-blue-200 font-medium rounded py-1 w-2/5" type="submit" value="AIRTABLE 입력" class="submit" />
+	<a class="border border-black font-medium rounded px-2 mr-2 py-2 w-1/4" href="{% url 'issues:issue_import' %}">기록 보기</a>
+	</div>
+</div>
+	
+</form>
+
+
+</h5>
+
 {% endblock content %}

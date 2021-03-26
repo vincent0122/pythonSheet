@@ -12,10 +12,12 @@ django = "*"
 pillow = "*"
 python-dotenv = "*"
 airtable-python-wrapper = "*"
+awsebcli = "*"
 
 [dev-packages]
 flake8 = "*"
 black = "*"
+awsebcli = "*"
 
 [requires]
 python_version = "3.9"

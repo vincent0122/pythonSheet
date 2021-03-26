@@ -11,7 +11,7 @@ class AddForm(forms.ModelForm):
 class FileFieldForm(forms.ModelForm):
     class Meta:
         model = models.IssueFile
-        fields = ["file"]
+        fields = ["첨부파일"]
         widgets = {
-            "file": forms.ClearableFileInput(attrs={"multiple": True}),
+            "첨부파일": forms.ClearableFileInput(attrs={"multiple": True}),
         }

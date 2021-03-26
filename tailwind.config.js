@@ -1,11 +1,21 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-}
+	theme: {
+		extend: {
+			spacing: {
+				"25vh": "25vh",
+				"50vh": "50vh",
+				"75vh": "75vh",
+			},
+			borderRadius: {
+				xl: "1.5rem",
+			},
+			colors: {
+				kakao: {
+					100: "#fff115",
+				},
+			},
+		},
+	},
+	variants: {},
+	plugins: [],
+};
