@@ -13,6 +13,7 @@ pillow = "*"
 python-dotenv = "*"
 airtable-python-wrapper = "*"
 awsebcli = "*"
+pipenv-to-requirements = "*"
 
 [dev-packages]
 flake8 = "*"
@@ -20,7 +21,7 @@ black = "*"
 awsebcli = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"
 
 [pipenv]
 allow_prereleases = true
