@@ -62,7 +62,7 @@ def complete_verification(request, key):
 
 def kakao_login(request):
     client_id = os.environ.get("KAKAO_ID")
-    redirect_uri = " https://hpdjango.herokuapp.com/users/login/kakao/callback"
+    redirect_uri = "https://hpdjango.herokuapp.com/users/login/kakao/callback"
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
     )
@@ -76,7 +76,7 @@ def kakao_callback(request):
     try:
         code = request.GET.get("code")
         client_id = os.environ.get("KAKAO_ID")
-        redirect_uri = " https://hpdjango.herokuapp.com/users/login/kakao/callback"
+        redirect_uri = "https://hpdjango.herokuapp.com/users/login/kakao/callback"
         token_request = requests.get(
             f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
         )
