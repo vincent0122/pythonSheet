@@ -12,19 +12,11 @@ django = "*"
 pillow = "*"
 python-dotenv = "*"
 airtable-python-wrapper = "*"
-awsebcli = "*"
-pipenv-to-requirements = "*"
 gunicorn = "*"
-dj-database-url = "*"
-whitenoise = "*"
-requests = "*"
-virtualenv = "==20.0.31"
-importlib-metadata = "==1.7.0"
 
 [dev-packages]
 flake8 = "*"
 black = "*"
-awsebcli = "*"
 
 [requires]
 python_version = "3.9"
