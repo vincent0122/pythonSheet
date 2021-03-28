@@ -14,6 +14,9 @@ python-dotenv = "*"
 airtable-python-wrapper = "*"
 awsebcli = "*"
 pipenv-to-requirements = "*"
+gunicorn = "*"
+dj-database-url = "*"
+whitenoise = "*"
 
 [dev-packages]
 flake8 = "*"
