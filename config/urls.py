@@ -11,8 +11,8 @@ urlpatterns = [
     path("users/", include("users.urls", namespace="users")),
     path("issues/", include("issues.urls", namespace="issues")),
     path("admin/", admin.site.urls),
-    url(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
-    url(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
+    # url(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    # url(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
 ]
 
 if settings.DEBUG:
