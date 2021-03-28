@@ -13,6 +13,7 @@ pillow = "*"
 python-dotenv = "*"
 airtable-python-wrapper = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 flake8 = "*"
