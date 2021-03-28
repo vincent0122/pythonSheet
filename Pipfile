@@ -14,7 +14,6 @@ python-dotenv = "*"
 airtable-python-wrapper = "*"
 gunicorn = "*"
 whitenoise = "*"
-django-heroku = "*"
 
 [dev-packages]
 flake8 = "*"
