@@ -14,6 +14,8 @@ python-dotenv = "*"
 airtable-python-wrapper = "*"
 gunicorn = "*"
 whitenoise = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 flake8 = "*"
