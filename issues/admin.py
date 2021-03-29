@@ -13,7 +13,7 @@ class IssueAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.IssueFile)
-class IssueAdmin(admin.ModelAdmin):
+class IssueFileAdmin(admin.ModelAdmin):
 
     """ Issue Admin Definition """
 

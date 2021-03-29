@@ -1,5 +1,4 @@
 from django.db import models
-from core import models as core_models
 from users.models import User
 from . import validators
 
@@ -23,6 +22,3 @@ class IssueFile(models.Model):
         upload_to="files/", blank=True, validators=[validators.validate_file_size]
     )
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
-
-    # def __str__(self):
-    #     return self.caption
