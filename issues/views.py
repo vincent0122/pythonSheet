@@ -52,8 +52,8 @@ def issue_create(request):
 
     files = models.IssueFile.objects.all()
     issues = models.Issue.objects.all()
-    files.delete()
-    issues.delete()
+    # files.delete()
+    # issues.delete()
 
     # # os.rmdir(file_path)
 
