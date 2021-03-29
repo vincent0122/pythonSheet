@@ -7,9 +7,14 @@ from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
 from users import models as user_models
 from . import models, forms
+from django.core.exceptions import ValidationError
 
 
-import pandas as pd
+def file_size(value):  # add this to some file where you can import it from
+    limit = 50 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError("File too large. Size should not exceed 50 MB.")
+
 
 load_dotenv()
 api_key = os.getenv("API_KEY")
@@ -69,14 +74,6 @@ def issue_create(request):
                 "거래처": customer,
                 "내용": issue,
                 "Attachments": file_urls,
-                # [
-                #     {
-                #         "url": "https://2.bp.blogspot.com/-aaYab7phjF4/Xa_TOXvC5hI/AAAAAAAAQME/2xf9AYY0450n-hAobHdEHRrYmPbcy0jsACLcBGAsYHQ/w914-h514-p-k-no-nu/suzy-beautiful-korean-girl-uhdpaper.com-4K-4.1423-wp.thumbnail.jpg"
-                #     },
-                #     {
-                #         "url": "https://dl.airtable.com/.attachments/9d020ee5ca79c9b527c030ced8d83bef/0d11df0c/KakaoTalk_20200527_084727449.png",
-                #     },
-                # ],
             }
         )
 

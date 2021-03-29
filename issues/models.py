@@ -1,6 +1,7 @@
 from django.db import models
 from core import models as core_models
 from users.models import User
+from .views import file_size
 
 
 class Issue(models.Model):
@@ -18,7 +19,7 @@ class IssueFile(models.Model):
 
     """ Issue File Model """
 
-    첨부파일 = models.FileField(upload_to="files/", blank=True)
+    첨부파일 = models.FileField(upload_to="files/", blank=True, validators=[file_size])
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
 
     # def __str__(self):
