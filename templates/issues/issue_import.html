@@ -23,7 +23,7 @@ ID : <input class="border-b border-black text-center" type="text" name="ID" size
         {% if attachments != None %}
         <div>첨부파일 :
         {% for attach in attachments %}
-        <a href = {{attach}}>{{attach}}</a>
+        <a href = {{attach.0}}>{{attach.1}}</a>
         {% endfor %}
         </div>        
         <form method="get" action="{% url 'issues:attachments_edit' %}">
