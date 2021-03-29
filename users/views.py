@@ -7,8 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
 from . import forms, models
 from django.shortcuts import render
+from config.settings import DEBUG
 
-DEBUG = os.environ.get("DEBUG")
+
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
