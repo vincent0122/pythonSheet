@@ -74,7 +74,7 @@ def issue_create(request):
             {
                 "작성자": name,
                 "거래처": customer,
-                "내용": file_urls,
+                "내용": file_urls[0],
                 # "Attachments": [
                 #     {
                 #         "url": "https://2.bp.blogspot.com/-aaYab7phjF4/Xa_TOXvC5hI/AAAAAAAAQME/2xf9AYY0450n-hAobHdEHRrYmPbcy0jsACLcBGAsYHQ/w914-h514-p-k-no-nu/suzy-beautiful-korean-girl-uhdpaper.com-4K-4.1423-wp.thumbnail.jpg"
