@@ -1,7 +1,7 @@
 from django.db import models
 from core import models as core_models
 from users.models import User
-from .views import file_size
+from . import validators
 
 
 class Issue(models.Model):
