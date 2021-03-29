@@ -62,7 +62,7 @@ def issue_create(request):
 
     for f in file_value:
         file_name = f["첨부파일"]
-        file_url = f"'url':'https://hpdjango.herokuapp.com/media/{file_name}'"
+        file_url = dict(url=f"https://hpdjango.herokuapp.com/media/{file_name}")
         file_urls.append(file_url)
     if issue:
         airtable.insert(
