@@ -19,7 +19,9 @@ class IssueFile(models.Model):
 
     """ Issue File Model """
 
-    첨부파일 = models.FileField(upload_to="files/", blank=True, validators=[file_size])
+    첨부파일 = models.FileField(
+        upload_to="files/", blank=True, validators=[validators.validate_file_size]
+    )
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
 
     # def __str__(self):
