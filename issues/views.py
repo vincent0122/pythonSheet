@@ -52,8 +52,6 @@ def issue_create(request):
 
     files = models.IssueFile.objects.all()
     issues = models.Issue.objects.all()
-    # files.delete()
-    # issues.delete()
 
     # # os.rmdir(file_path)
 
@@ -83,6 +81,8 @@ def issue_create(request):
         )
 
     # 에어테이블 업로드 후, 삭제
+    files.delete()
+    issues.delete()
 
     return render(request, "issues/issue_create.html", {"file_form": file_form})
 
