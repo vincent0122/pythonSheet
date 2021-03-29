@@ -61,7 +61,7 @@ def issue_create(request):
     file_urls = []
 
     for f in file_value:
-        file_name = f["file"]
+        file_name = f["첨부파일"]
         file_url = (
             "url" f"https://hpdjango.herokuapp.com/media{file_name}"
         )  # deploy 이후 정리하면 됨
