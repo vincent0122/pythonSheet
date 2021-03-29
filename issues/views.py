@@ -62,11 +62,8 @@ def issue_create(request):
 
     for f in file_value:
         file_name = f["첨부파일"]
-        file_url = "{\'url\' : \'f"https://hpdjango.herokuapp.com/media/{file_name}"\'}"  # deploy 이후 정리하면 됨
+        file_url = f"'url':'https://hpdjango.herokuapp.com/media/{file_name}'"
         file_urls.append(file_url)
-
-    print(file_urls)
-
     if issue:
         airtable.insert(
             {
@@ -74,6 +71,14 @@ def issue_create(request):
                 "거래처": customer,
                 "내용": issue,
                 "Attachments": file_urls,
+                # [
+                #     {
+                #         "url": "https://2.bp.blogspot.com/-aaYab7phjF4/Xa_TOXvC5hI/AAAAAAAAQME/2xf9AYY0450n-hAobHdEHRrYmPbcy0jsACLcBGAsYHQ/w914-h514-p-k-no-nu/suzy-beautiful-korean-girl-uhdpaper.com-4K-4.1423-wp.thumbnail.jpg"
+                #     },
+                #     {
+                #         "url": "https://dl.airtable.com/.attachments/9d020ee5ca79c9b527c030ced8d83bef/0d11df0c/KakaoTalk_20200527_084727449.png",
+                #     },
+                # ],
             }
         )
 
