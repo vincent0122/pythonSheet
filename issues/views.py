@@ -62,7 +62,9 @@ def issue_create(request):
 
     for f in file_value:
         file_name = f["file"]
-        file_url = "url" f"http://127.0.0.1:8000/media{file_name}"  # deploy 이후 정리하면 됨
+        file_url = (
+            "url" f"https://hpdjango.herokuapp.com/media{file_name}"
+        )  # deploy 이후 정리하면 됨
         file_urls.append(file_url)
 
     print(file_urls)
