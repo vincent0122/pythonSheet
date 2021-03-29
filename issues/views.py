@@ -27,13 +27,13 @@ def issue_create(request):
     if request.method == "POST":
         form = forms.AddForm(request.POST)
         file_form = forms.FileFieldForm(request.POST, request.FILES)
-        files = request.FILES.getlist("file")
+        files = request.FILES.getlist("첨부파일")
         if form.is_valid() and file_form.is_valid():
             issue_instance = form.save(commit=False)
             issue_instance.user = user
             issue_instance.save()
             for f in files:
-                issuefile_instance = models.IssueFile(file=f, issue=issue_instance)
+                issuefile_instance = models.IssueFile(첨부파일=f, issue=issue_instance)
                 issuefile_instance.save()
     else:
         form = forms.AddForm()
