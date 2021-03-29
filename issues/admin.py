@@ -21,6 +21,6 @@ class IssueAdmin(admin.ModelAdmin):
     # list_display = ("caption", "file")
 
     def get_thumbnail(self, obj):
-        return mark_safe(f'<img width="50px" src="{obj.file.url}" />')
+        return mark_safe(f'<img width="50px" src="{obj.첨부파일.url}" />')
 
     get_thumbnail.short_description = "Thumbnail"
