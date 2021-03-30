@@ -10,49 +10,8 @@
 		<title>{% block page_title %}{% endblock page_title %}</title>
 	</head>
 	<body class="text-gray-800 mt-24 h-screen">
-		<header class="container max-w-full inset-0 flex items-center justify-between px-6 h-20 border-b border-gray-400 fixed bg-white">
-			<a href="{% url 'core:home' %}" class="flex items-center">
-				<img class="w-8" src="{% static 'img/logo.png' %}" />
-				<div class="pl-4">Hanpel</div>
-			</a>
-				<div class="dropdown">
-						<a href="{% url 'core:home' %}" class="flex items-center">
-						<div class="px-2 text-lg no-underline hover:underline">이 슈</div></a>
-						<div class="dropdown-content">
-      						<a href="#">팀장 회의</a>
-      						<a href="#">MY ISSUE</a>
-						</div>
-				</div>
-
-				<div class="dropdown">
-						<a href="{% url 'core:home' %}" class="flex items-center">
-						<div class="px-2 text-lg no-underline hover:underline">재 고</div></a>
-						<div class="dropdown-content">
-      						<a href="#">재고예상</a>
-      						<a href="#">아이템별</a>
-      						<a href="#">배합이력</a>
-						</div>
-				</div>
-						
-				<div class="dropdown">
-						<a href="{% url 'core:home' %}" class="flex items-center">
-						<div class="px-2 text-lg no-underline hover:underline">판 매</div></a>
-						<div class="dropdown-content">
-      						<a href="#"></a>
-      						<a href="#"></a>
-      						<a href="#"></a>
-						</div>
-				</div>
-
-				<div class="dropdown">
-						<a href="{% url 'core:home' %}" class="flex items-center">
-						<div class="px-2 text-lg no-underline hover:underline">비 용</div></a>
-						<div class="dropdown-content">
-      						<a href="#"></a>
-      						<a href="#"></a>
-      						<a href="#"></a>
-						</div>
-				</div>
+		<header class="container inset-0 flex h-16 border-b border-gray-400 fixed bg-white">
+	
 			{% include "partials/nav.html" %}
 		</header>
 		{% block content %}{% endblock %} 
