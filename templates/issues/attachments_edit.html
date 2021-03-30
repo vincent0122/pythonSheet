@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %} 
+{% extends "base.html" %} {% load static %} 
+
+{% block content %} 
 
 <div class="flex flex-col justify-center text-center">
 <div class="my-8">
@@ -7,7 +9,13 @@
         <a href = {{attach}}> {{attach.0}}. {{attach.2}} /</a>
     {% endfor %}
 </div>
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
 <div class="flex justify-center">
+{{ file_form }}
+<input class="border border-black bg-red-200 rounded px-2 text-base mb-8" type="submit" value="추가">
+</form>
+
 <span>몇 번째 파일을 삭제하시겠습니까?</span>
 <form method="get" action="{% url 'issues:attachments_del' %}">
 <input class="mx-2 border-b border-black" type="text" name="number" size="3">

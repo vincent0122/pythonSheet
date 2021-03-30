@@ -45,13 +45,10 @@ def issue_create(request):
 
     name = user.first_name
     issue = request.POST.get("issue")
-    print(issue)
     customer = request.POST.get("customer")
 
     files = models.IssueFile.objects.all()
     issues = models.Issue.objects.all()
-
-    # # os.rmdir(file_path)
 
     file_value = models.IssueFile.objects.values()
     file_urls = []
@@ -128,22 +125,74 @@ def issue_edit(request):
 
 
 def attachment_edit(request):
+    user = request.user
+    if request.method == "POST":
+        form = forms.AddForm(request.POST)
+        file_form = forms.FileFieldForm(request.POST, request.FILES)
+        files = request.FILES.getlist("첨부파일")
+        if form.is_valid() and file_form.is_valid():
+            issue_instance = form.save(commit=False)
+            issue_instance.user = user
+            issue_instance.save()
+            for f in files:
+                issuefile_instance = models.IssueFile(첨부파일=f, issue=issue_instance)
+                issuefile_instance.save()
+    else:
+        form = forms.AddForm()
+        file_form = forms.FileFieldForm()
+
+    files = models.IssueFile.objects.all()
+    issues = models.Issue.objects.all()
+    file_value = models.IssueFile.objects.values()
+    file_urls = []
+
+    for f in file_value:
+        file_name = f["첨부파일"]
+        file_url = dict(url=f"https://hpdjango.herokuapp.com/media/{file_name}")
+        file_urls.append(file_url)
+
     ID = request.GET.get("ID", 0)
-    data = airtable.search("ID", ID)[0]["fields"]
-    number = 0
-    attachments = []
+    record = airtable.match("ID", request.GET.get("ID"))
+    data = record["fields"]["Attachments"]
 
-    for attach in data["Attachments"]:
-        number = number + 1
-        line = []
-        line.append(number)
-        line.append(attach["url"])
-        line.append(attach["filename"])
-        attachments.append(line)
+    if len(list(files)) > 0:
+        file_value = models.IssueFile.objects.values()
+        file_urls = []
 
-    return render(
-        request, "issues/attachments_edit.html", {"attachments": attachments, "ID": ID}
-    )
+        for f in file_value:
+            file_name = f["첨부파일"]
+            file_url = dict(url=f"https://hpdjango.herokuapp.com/media/{file_name}")
+            file_urls.append(file_url)
+
+        for urls in data:
+            file_url = dict(url=urls["url"])
+            file_urls.append(file_url)
+
+        fields = {"Attachments": file_urls}
+        airtable.update(record["id"], fields)
+        print(fields)
+        files.delete()
+        issues.delete()
+
+        return redirect(reverse("core:home"))
+
+    else:
+        number = 0
+        attachments = []
+
+        for attach in data:
+            number = number + 1
+            line = []
+            line.append(number)
+            line.append(attach["url"])
+            line.append(attach["filename"])
+            attachments.append(line)
+
+        return render(
+            request,
+            "issues/attachments_edit.html",
+            {"attachments": attachments, "ID": ID, "file_form": file_form},
+        )
 
 
 def attachment_del(request):
@@ -157,7 +206,7 @@ def attachment_del(request):
     fields = {"Attachments": attachments}
 
     airtable.update(record["id"], fields)
-    return redirect(reverse("core:add"))
+    return redirect(reverse("core:home"))
 
 
 # # 첨부파일 수정하기

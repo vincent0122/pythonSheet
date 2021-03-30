@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
+
+.bluebtn {
+	@apply border border-black bg-blue-200 font-medium rounded py-1;
+}
+
+.dropdown {
+	@apply float-left overflow-hidden;
+}
+
+.dropdown-content {
+	@apply hidden absolute mb-2;
+}
+
+.dropdown-content a {
+	@apply block border my-2 px-1 rounded bg-white text-center;
+}
+
+.dropdown-content a:hover {
+	@apply bg-blue-200;
+}
+
+.dropdown:hover .dropdown-content {
+	@apply block;
+}
+
 @tailwind utilities;

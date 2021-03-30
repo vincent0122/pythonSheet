@@ -27,8 +27,8 @@ ID : <input class="border-b border-black text-center" type="text" name="ID" size
         {% endfor %}
         </div>        
         <form method="get" action="{% url 'issues:attachments_edit' %}">
-        <input class = "ml-6 order border-black bg-blue-200 rounded px-2 text-base" type="submit" value="첨부파일 삭제">
-        <input type="hidden" value={{ID}} name="ID" size="10"></form>
+        <input class = "ml-6 order border-black bg-blue-200 rounded px-2 text-base" type="submit" value="수정">
+        <input type="hidden" value={{ID}} name="ID"></form>
         {% endif %}
     </div>
 </div>
