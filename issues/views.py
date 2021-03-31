@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
 from users import models as user_models
 from . import models, forms
+from datetime import datetime
 
 
 load_dotenv()
@@ -44,14 +45,24 @@ def issue_create(request):
         return redirect(reverse("issues:intro"))
 
     name = user.first_name
+    if name == "진석" or "동현":
+        team = "수출입"
+
     issue = request.POST.get("issue")
     customer = request.POST.get("customer")
+    meeting = request.POST.get("meeting")
+
+    if meeting == "on":
+        check = True
+    else:
+        check = False
 
     files = models.IssueFile.objects.all()
     issues = models.Issue.objects.all()
 
     file_value = models.IssueFile.objects.values()
     file_urls = []
+    today = datetime.today().strftime("%Y/%m/%d")
 
     for f in file_value:
         file_name = f["첨부파일"]
@@ -60,9 +71,12 @@ def issue_create(request):
     if issue:
         airtable.insert(
             {
+                "부서": team,
+                "날짜": today,
                 "작성자": name,
                 "거래처": customer,
                 "내용": issue,
+                "팀장회의": check,
                 "Attachments": file_urls,
             }
         )
@@ -85,6 +99,12 @@ def id_import(request):
     writer = data["작성자"]
     customer = data["거래처"]
     detail = data["내용"]
+
+    if data.get("팀장회의") is not None:
+        check = data["팀장회의"]
+    else:
+        check = False
+
     attachments = []
 
     if data.get("Attachments") is not None:
@@ -109,6 +129,7 @@ def id_import(request):
                 "ID": ID,
                 "attachments": attachments,
                 "air_view": air_view,
+                "check": check,
             },
         )
 
@@ -117,7 +138,10 @@ def issue_edit(request):
     record = airtable.match("ID", request.GET.get("ID"))
     customer = request.GET.get("customer")
     detail = request.GET.get("detail")
-    fields = {"내용": detail, "거래처": customer}
+    check = request.GET.get("check")
+    if check == "on":
+        check = True
+    fields = {"내용": detail, "거래처": customer, "팀장회의": check}
 
     airtable.update(record["id"], fields)
 
@@ -153,7 +177,9 @@ def attachment_edit(request):
 
     ID = request.GET.get("ID", 0)
     record = airtable.match("ID", request.GET.get("ID"))
-    data = record["fields"]["Attachments"]
+
+    if record["fields"].get("Attachments") is not None:
+        data = record["fields"]["Attachments"]
 
     if len(list(files)) > 0:
         file_value = models.IssueFile.objects.values()
@@ -206,6 +232,31 @@ def attachment_del(request):
     fields = {"Attachments": attachments}
 
     airtable.update(record["id"], fields)
+    return redirect(reverse("core:home"))
+
+
+def tlmeeting(request):
+    datas = airtable.search("팀장회의", "1")
+
+    return render(request, "issues/tlmeeting.html", {"datas": datas})
+
+
+def checkUncheck(request):  # 자꾸 순환된다..
+    datas = airtable.search("팀장회의", "1")
+    idon = request.GET.getlist("idon", None)
+    print(idon)
+    ids = []
+
+    for d in datas:
+        ids.append(d["id"])
+
+    for i in idon:
+        ids.remove(i)
+
+    fields = {"팀장회의": False}
+    for i in ids:
+        airtable.update(i, fields)
+
     return redirect(reverse("core:home"))
 
 
