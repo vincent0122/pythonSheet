@@ -1,6 +1,6 @@
 {% load static %}
 
-<ul class="flex mx-4 justify-between w-full items-center text-sm font-medium">
+<ul class="flex mx-4 justify-between w-screen items-center text-sm font-medium">
 	{% if user.is_authenticated %}
 	<div class="dropdown">
 		<a href="{% url 'core:home' %}" class="flex items-center">
@@ -10,18 +10,18 @@
 	</div>
 	
 	<div class="dropdown">
-				<a href="{% url 'core:home' %}" class="flex items-center">
-				<div class="px-1 no-underline hover:underline">이슈</div></a>
+				<div class="px-1 no-underline hover:underline">이슈</div>
 				<div class="dropdown-content">
+					<a href="{% url 'issues:tlmeeting' %}">HOME</a>
 					<a href="{% url 'issues:tlmeeting' %}">팀장 회의</a>
-					<a href="#">MY ISSUE</a>
+					<a href="{% url 'issues:myissue' %}">MY ISSUE</a>
 				</div>
 	</div>
 
 	<div class="dropdown">
-				<a href="{% url 'core:home' %}" class="flex items-center">
-				<div class="px-1 no-underline hover:underline">재고</div></a>
+				<div class="px-1 no-underline hover:underline">재고</div>
 				<div class="dropdown-content">
+					<a href="#">HOME</a>
 					<a href="#">재고예상</a>
 					<a href="#">아이템별</a>
 					<a href="#">배합이력</a>
@@ -29,8 +29,7 @@
 	</div>
 				
 	<div class="dropdown">
-				<a href="{% url 'core:home' %}" class="flex items-center">
-				<div class="px-1 no-underline hover:underline">판매</div></a>
+				<div class="px-1 no-underline hover:underline">판매</div>
 				<div class="dropdown-content">
 					<a href="#"></a>
 					<a href="#"></a>
@@ -39,8 +38,7 @@
 	</div>
 
 	<div class="dropdown">
-				<a href="{% url 'core:home' %}" class="flex items-center">
-				<div class="px-1 no-underline hover:underline">비용</div></a>
+				<div class="px-1 no-underline hover:underline">비용</div>
 				<div class="dropdown-content">
 					<a href="#"></a>
 					<a href="#"></a>

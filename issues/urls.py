@@ -11,5 +11,7 @@ urlpatterns = [
     path("attachments_edit/", views.attachment_edit, name="attachments_edit"),
     path("attachments_del/", views.attachment_del, name="attachments_del"),
     path("tlmeeting/", views.tlmeeting, name="tlmeeting"),
+    path("myissue/", views.myissue, name="myissue"),
     path("checkUncheck/", views.checkUncheck, name="checkUncheck"),
+    path("checkUncheck_issue/", views.checkUncheck_issue, name="checkUncheck_issue"),
 ]

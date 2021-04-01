@@ -237,8 +237,31 @@ def attachment_del(request):
 
 def tlmeeting(request):
     datas = airtable.search("팀장회의", "1")
-
     return render(request, "issues/tlmeeting.html", {"datas": datas})
+
+
+def myissue(request):
+    datas = airtable.search("진행중", "1")
+    user = request.user
+    name = user.first_name
+
+    if name == "진석" or "동현":
+        team = "수출입"
+
+    matches = filter(lambda el: el["fields"]["작성자"] == name, datas)
+    team_issues = filter(
+        lambda el: el["fields"]["부서"] == team and el["fields"]["작성자"] != name, datas
+    )
+    datas = filter(
+        lambda el: el["fields"]["부서"] == team and el["fields"]["부서"] != team, datas
+    )
+
+    # matching_user = dict(filter(lambda el:))
+    return render(
+        request,
+        "issues/myissue.html",
+        {"matches": matches, "team_issues": team_issues, "datas": datas},
+    )
 
 
 def checkUncheck(request):  # 자꾸 순환된다..
@@ -254,6 +277,24 @@ def checkUncheck(request):  # 자꾸 순환된다..
         ids.remove(i)
 
     fields = {"팀장회의": False}
+    for i in ids:
+        airtable.update(i, fields)
+
+    return redirect(reverse("core:home"))
+
+
+def checkUncheck_issue(request):  # 자꾸 순환된다..
+    datas = airtable.search("진행중", "1")
+    idon = request.GET.getlist("idon", None)
+    ids = []
+
+    for d in datas:
+        ids.append(d["id"])
+
+    for i in idon:
+        ids.remove(i)
+
+    fields = {"진행중": False}
     for i in ids:
         airtable.update(i, fields)
 
