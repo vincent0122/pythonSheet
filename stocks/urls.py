@@ -4,5 +4,5 @@ from . import views
 app_name = "stocks"
 
 urlpatterns = [
-    # path("issue_import/", views.issue_import, name="issue_import"),
+    path("stock_future/", views.stock_future, name="stock_future"),
 ]

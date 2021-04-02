@@ -12,7 +12,7 @@
 	<div class="dropdown">
 				<div class="px-1 no-underline hover:underline">이슈</div>
 				<div class="dropdown-content">
-					<a href="{% url 'issues:tlmeeting' %}">HOME</a>
+					<a href="{% url 'core:home' %}">HOME</a>
 					<a href="{% url 'issues:tlmeeting' %}">팀장 회의</a>
 					<a href="{% url 'issues:myissue' %}">MY ISSUE</a>
 				</div>
@@ -21,8 +21,7 @@
 	<div class="dropdown">
 				<div class="px-1 no-underline hover:underline">재고</div>
 				<div class="dropdown-content">
-					<a href="#">HOME</a>
-					<a href="#">재고예상</a>
+					<a href="{% url 'stocks:stock_future' %}">재고예상</a>
 					<a href="#">아이템별</a>
 					<a href="#">배합이력</a>
 				</div>

@@ -149,3 +149,4 @@ node_modules
 !.elasticbeanstalk/*.global.yml
 
 local_settings.py
+creden/

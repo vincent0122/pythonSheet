@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "hpdjango.herokuapp.com"]
 
@@ -25,6 +25,7 @@ PROJECT_APPS = [
     "users.apps.UsersConfig",
     "core.apps.CoreConfig",
     "issues.apps.IssuesConfig",
+    "stocks.apps.StocksConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS

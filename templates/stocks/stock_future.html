@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% load static %} 
+
+{% block page_title %}
+    재고예상
+{% endblock page_title %}
+
+{% block content %}
+<div class="flex flex-col text-center justify-center">
+      <div class="flex text-center justify-center mb-8">
+         <span class="mx-8">기간</span>
+         <i class="far fa-calendar-alt text-base"></i>
+         <form action="{% url 'stocks:stock_future' %}" , method="get">          
+          <input class="ml-2 mx-6 border border-black pl-4 rounded w-4/5" type="text" value="{{start}}" name="start" onfocus="(this.type='date')" onblur="(this.type='text')" size="11">
+    
+        <i class="far fa-calendar-alt text-base"></i>
+        <input class="ml-2 mx-6 border border-black pl-4 rounded w-4/5" type="text" name="last" value="{{last}}" onfocus="(this.type='date')" onblur="(this.type='text')" size="11">
+        <button class="bluebtn text-xs">제출</button>
+        </form>  
+    </div>
+
+
+
+    <div class="slidecontainer flex justify-center">
+        <input type="range" min="100" max="200" value="100" class="slider" id="myRange">
+        <p class="ml-4">가중치 : <span id="demo"></span>%</p>
+    
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+        output.innerHTML = this.value;
+        }
+    </script>
+    </div>
+</div>
+    {{ graph|safe }}
+
+{% endblock content %}
