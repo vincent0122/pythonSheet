@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 from .google_auth import get_google
-from .backdata import basic_setting
+from backdata import basic_setting
 import pandas as pd
 
 from datetime import timedelta
