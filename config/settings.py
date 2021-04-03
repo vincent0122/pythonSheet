@@ -26,7 +26,6 @@ PROJECT_APPS = [
     "core.apps.CoreConfig",
     "issues.apps.IssuesConfig",
     "stocks.apps.StocksConfig",
-    "stocks.apps.plotly",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
