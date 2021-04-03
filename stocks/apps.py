@@ -8,11 +8,12 @@ from datetime import datetime as dt
 
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-import plotly.express as px
-from plotly import graph_objs as go
-from plotly.graph_objs import *
 
-import json
+# import plotly.express as px
+# from plotly import graph_objs as go
+# from plotly.graph_objs import *
+
+# import json
 
 
 class StocksConfig(AppConfig):
