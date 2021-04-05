@@ -7,22 +7,17 @@
 {% block content %}
 <div class="flex flex-col text-center justify-center">
       <div class="flex text-center justify-center mb-8">
+         <form class="w-3/5" action="{% url 'stocks:stock_future' %}" , method="get">          
          <span class="mx-8">기간</span>
          <i class="far fa-calendar-alt text-base"></i>
-         <form action="{% url 'stocks:stock_future' %}" , method="get">          
-          <input class="ml-2 mx-6 border border-black pl-4 rounded w-4/5" type="text" value="{{start}}" name="start" onfocus="(this.type='date')" onblur="(this.type='text')" size="11">
-    
+          <input class="mx-6 border border-black pl-4 rounded w-1/5" type="text" value="{{start}}" name="start" onfocus="(this.type='date')" onblur="(this.type='text')" size="11">
         <i class="far fa-calendar-alt text-base"></i>
-        <input class="ml-2 mx-6 border border-black pl-4 rounded w-4/5" type="text" name="last" value="{{last}}" onfocus="(this.type='date')" onblur="(this.type='text')" size="11">
-        <button class="bluebtn text-xs">제출</button>
-        </form>  
-    </div>
-
-
-
-    <div class="slidecontainer flex justify-center">
-        <input type="range" min="100" max="200" value="100" class="slider" id="myRange">
-        <p class="ml-4">가중치 : <span id="demo"></span>%</p>
+        <input class="ml-2 mx-6 border border-black pl-4 rounded w-1/5" type="text" name="last" value="{{last}}" onfocus="(this.type='date')" onblur="(this.type='text')" size="11">
+        <button class="bluebtn px-2 text-xs">제출</button>
+    
+        <div class="slidecontainer mt-8 -mb-8 flex justify-center">
+        <input type="range" min="100" max="200" value={{wvh}} class="slider" name="wv" id="myRange">
+        <p class="ml-4">가중치 : <span id="demo"></span>%</p></div>
     
     <script>
         var slider = document.getElementById("myRange");
@@ -33,6 +28,7 @@
         output.innerHTML = this.value;
         }
     </script>
+    </form>  
     </div>
 </div>
     {{ graph|safe }}

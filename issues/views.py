@@ -51,11 +51,17 @@ def issue_create(request):
     issue = request.POST.get("issue")
     customer = request.POST.get("customer")
     meeting = request.POST.get("meeting")
+    ing = request.POST.get("ing")
 
     if meeting == "on":
         check = True
     else:
         check = False
+
+    if ing == "on":
+        check2 = True
+    else:
+        check2 = False
 
     files = models.IssueFile.objects.all()
     issues = models.Issue.objects.all()
@@ -77,6 +83,7 @@ def issue_create(request):
                 "거래처": customer,
                 "내용": issue,
                 "팀장회의": check,
+                "진행중": check2,
                 "Attachments": file_urls,
             }
         )
@@ -267,7 +274,6 @@ def myissue(request):
 def checkUncheck(request):  # 자꾸 순환된다..
     datas = airtable.search("팀장회의", "1")
     idon = request.GET.getlist("idon", None)
-    print(idon)
     ids = []
 
     for d in datas:
