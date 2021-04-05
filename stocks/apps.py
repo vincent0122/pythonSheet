@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from core.google_auth import get_google
+from core import google_auth as ga
 import pandas as pd
 from datetime import timedelta
 from datetime import datetime as dt
@@ -78,7 +78,7 @@ def get_sheetsId():
 
 
 def get_sheet():  # gs 밑에다가
-    gc = get_google()
+    gc = ga.get_google()
     gs = get_sheetsId()
     result = {
         "stock": gc.open_by_key(gs["factory_report"]).worksheet("재고현황"),
