@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from core.google_auth import get_google
 
-from . import backdata as basic_setting
+from . import backdata
 import pandas as pd
 
 from datetime import timedelta
@@ -15,6 +15,8 @@ import plotly.graph_objects as go
 # from plotly.graph_objs import *
 
 # import json
+
+basic_setting = backdata.basic_setting
 
 
 class StocksConfig(AppConfig):
