@@ -16,7 +16,7 @@ import plotly.graph_objects as go
 
 # import json
 
-basic_setting = backdata.basic_setting
+basic_setting = backdata.base.basic_setting
 
 
 class StocksConfig(AppConfig):
