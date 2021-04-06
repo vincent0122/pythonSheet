@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from core import google_auth as ga
+from core.google_auth import get_google
 import pandas as pd
 from datetime import timedelta
 from datetime import datetime as dt
@@ -72,13 +72,14 @@ def get_sheetsId():
         "factory_report": "1owxqOWAI_A31eDKafUDKfehy9gfSkPZT5dECwxqeihU",  # 공장일지
         "eta_status": "1_0DwnDGTJm6iKEYZHwVC9mDsvIQSq_7AWTG7pckeaow",  # eta현황
         "sales_status": "1U4pgA9tfj2sciXj_6LMQ74Vff81OButlpOBb_RVvH9c",  # 판매관리대장2021
+        "cost": "1ig_fqJOLWKMA3YTQOa_n10gd1nfuby4tnLnoyMHyF1k",
     }
 
     return gsheets_ids
 
 
 def get_sheet():  # gs 밑에다가
-    gc = ga.get_google()
+    gc = get_google()
     gs = get_sheetsId()
     result = {
         "stock": gc.open_by_key(gs["factory_report"]).worksheet("재고현황"),
@@ -141,6 +142,7 @@ def cleaning_datas():
 
     def change_comma_to_float(key, col_name):
         values_df[key].loc[:, col_name] = values_df[key][col_name].str.replace(",", "")
+        print(values_df[key].loc[:, col_name])
         values_df[key].loc[:, col_name] = values_df[key][col_name].astype(float)
         return values_df
 

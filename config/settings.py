@@ -26,6 +26,7 @@ PROJECT_APPS = [
     "core.apps.CoreConfig",
     "issues.apps.IssuesConfig",
     "stocks.apps.StocksConfig",
+    "cost.apps.CostConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
