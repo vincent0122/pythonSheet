@@ -17,8 +17,8 @@ base_key = os.getenv("BASE_ID")
 airtable = Airtable(base_key, "dataBase", api_key)
 air_view = os.getenv("AIR_VIEW")
 
+# if DEBUG is:
 if DEBUG is False:
-    # if DEBUG is:
     root_url = "http://127.0.0.1:8000/"
 else:
     root_url = "https://hpdjangostaging.herokuapp.com/"
