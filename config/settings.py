@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "hpdjango.herokuapp.com", "hpdjangostaging.herokuapp.com"]
 
@@ -62,7 +62,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-if DEBUG:
+if DEBUG is False:
+    # if DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
