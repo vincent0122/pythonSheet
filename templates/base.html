@@ -5,11 +5,12 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans+KR:500&display=swap&subset=korean">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<title>{% block page_title %}{% endblock page_title %}</title>
 	</head>
-	<body class="text-gray-800 mt-24 h-screen">
+	<body class="font-sans-kr text-gray-800 mt-24 h-screen">
 		<header class="container w-screen mx-auto inset-0 flex h-16 border-b border-gray-400 fixed bg-white">
 	
 			{% include "partials/nav.html" %}
