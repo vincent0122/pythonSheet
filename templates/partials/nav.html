@@ -1,6 +1,6 @@
 {% load static %}
 
-<ul class="font-sans-kr flex mx-4 justify-between w-screen items-center text-sm font-medium">
+<ul class="flex mx-4 justify-between w-screen items-center text-sm font-bold">
 	{% if user.is_authenticated %}
 	<div class="dropdown">
 		<a href="{% url 'core:home' %}" class="flex items-center">
