@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from users import models as user_models
 from . import models, forms
 from datetime import datetime
+from config.settings import DEBUG
 
 
 load_dotenv()
@@ -15,6 +16,11 @@ api_key = os.getenv("API_KEY")
 base_key = os.getenv("BASE_ID")
 airtable = Airtable(base_key, "dataBase", api_key)
 air_view = os.getenv("AIR_VIEW")
+
+if DEBUG:
+    root_url = "http://127.0.0.1:8000/"
+else:
+    root_url = "https://hpdjango.herokuapp.com/"
 
 
 def intro(request):
@@ -78,7 +84,7 @@ def issue_create(request):
 
     for f in file_value:
         file_name = f["첨부파일"]
-        file_url = dict(url=f"https://hpdjango.herokuapp.com/media/{file_name}")
+        file_url = dict(url=f"{root_url}media/{file_name}")
         file_urls.append(file_url)
     if issue:
         airtable.insert(
@@ -185,7 +191,7 @@ def attachment_edit(request):
 
     for f in file_value:
         file_name = f["첨부파일"]
-        file_url = dict(url=f"https://hpdjango.herokuapp.com/media/{file_name}")
+        file_url = dict(url=f"{root_url}media/{file_name}")
         file_urls.append(file_url)
 
     ID = request.GET.get("ID", 0)
@@ -200,7 +206,7 @@ def attachment_edit(request):
 
         for f in file_value:
             file_name = f["첨부파일"]
-            file_url = dict(url=f"https://hpdjango.herokuapp.com/media/{file_name}")
+            file_url = dict(url=f"{root_url}media/{file_name}")
             file_urls.append(file_url)
 
         for urls in data:
