@@ -11,7 +11,7 @@ def get_google():
         "https://www.googleapis.com/auth/drive",
     ]
 
-    if DEBUG:
+    if DEBUG is False:
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             "./creden/google-credentials.json", scope
         )
