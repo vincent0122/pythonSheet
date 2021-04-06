@@ -13,7 +13,7 @@ from config.settings import DEBUG
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
-    root_url = "https://hpdjango.herokuapp.com/"
+    root_url = "https://hpdjangostaging.herokuapp.com/"
 
 # root_url = "https://hpdjango.herokuapp.com/"
 
