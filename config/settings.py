@@ -8,7 +8,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "hpdjango.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "hpdjango.herokuapp.com", "hpdjangostaging.herokuapp.com"]
 
 
 # Application definition
@@ -62,26 +62,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES2 = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
     }
-}
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "djangogirls",
-        "USER": "name",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "",
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "djangogirls",
+            "USER": "name",
+            "PASSWORD": "",
+            "HOST": "localhost",
+            "PORT": "",
+        }
     }
-}
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES["default"].update(db_from_env)
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES["default"].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#authpipoioj-password-validators
