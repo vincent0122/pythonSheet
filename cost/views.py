@@ -10,7 +10,7 @@ def cost_update(request):
 
     amount = request.GET.get("amount")
 
-    if amount > 0:
+    if int(amount) > 0:
         when = time.strftime("%y-%m-%d %H:%M:%S")
         detail = request.GET.get("detail")
         etc = request.GET.get("etc")
