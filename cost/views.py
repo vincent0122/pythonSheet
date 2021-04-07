@@ -7,13 +7,16 @@ import time
 
 
 def cost_update(request):
-    user = request.user
-    when = time.strftime("%y-%m-%d %H:%M:%S")
+
     amount = request.GET.get("amount")
-    detail = request.GET.get("detail")
-    etc = request.GET.get("etc")
 
-    user = user_models.User.objects.get(email=request.user).first_name
+    if amount > 0:
+        when = time.strftime("%y-%m-%d %H:%M:%S")
+        detail = request.GET.get("detail")
+        etc = request.GET.get("etc")
+        user = user_models.User.objects.get(email=request.user).first_name
+        update_cell(when, user, amount, detail, etc)
+        return render(request, "cost/update.html")
 
-    update_cell(when, user, amount, detail, etc)
-    return render(request, "cost/update.html")
+    else:
+        return render(request, "cost/update.html")
