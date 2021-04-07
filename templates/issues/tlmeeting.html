@@ -10,7 +10,7 @@
 <form method="get" action="{% url 'issues:checkUncheck' %}">
 <div class="flex flex-col">
 {% for d in datas %}
-    <span>{{d.fields.날짜}} {{d.fields.작성자}}
+    <span>{{d.fields.날짜}} {{d.fields.작성자}} ID={{d.fields.ID}}
     <input type="checkbox" name="idon" value={{d.id}} checked>
     </span>
     <span class="my-2">[{{d.fields.거래처}}] {{d.fields.내용}}</span>

@@ -1,6 +1,6 @@
 {% load static %}
 
-<ul class="flex mx-4 justify-between w-screen items-center text-sm font-medium">
+<ul class="flex mx-4 justify-between w-screen items-center text-sm font-bold">
 	{% if user.is_authenticated %}
 	<div class="dropdown">
 		<a href="{% url 'core:home' %}" class="flex items-center">
@@ -39,7 +39,7 @@
 	<div class="dropdown">
 				<div class="px-1 no-underline hover:underline">비용</div>
 				<div class="dropdown-content">
-					<a href="{% url 'cost:cost_update' %}">HOME</a>
+					<a href="{% url 'cost:cost_update' %}">법카입력</a>
 					<a href="#"></a>
 					<a href="#"></a>
 				</div>

@@ -15,6 +15,11 @@ def get_sheet():  # gs 밑에다가
     return result
 
 
-def update_cell():
+def update_cell(when, user, amount, detail, etc):
     ws = get_sheet()
-    ws.update("a1000", "hahaha")
+    print(amount)
+    if amount != "":
+        values = [when, user, amount, detail, etc]
+        lastRow = len(ws.col_values(1)) + 1
+        for idex, v in enumerate(values):
+            ws.update_cell(lastRow, idex + 1, v)
