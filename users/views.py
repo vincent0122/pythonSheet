@@ -10,7 +10,7 @@ from django.shortcuts import render
 from config.settings import DEBUG
 
 
-if DEBUG is False:
+if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
     root_url = "https://hpdjangostaging.herokuapp.com/"
