@@ -51,15 +51,17 @@ def issue_create(request):
         return redirect(reverse("issues:intro"))
 
     name = user.first_name
-    print(name)
-    if name == "임진석" or "심동현" or "임진아":
+
+    import_export = ["임진석", "심동현", "임진아", "진석"]
+    sales = ["임진강", "나준호"]
+    total = ["정소영", "이선화", "추승혜", "송혜주"]
+
+    if name in import_export:
         team = "수출입"
-
-    if name == "정소영" or "이선화" or "추승혜" or "송혜주":
-        team = "총무"
-
-    if name == "임진강" or "나준호":
+    if name in sales:
         team = "영업"
+    if name in total:
+        team = "총무"
 
     issue = request.POST.get("issue")
     customer = request.POST.get("customer")
