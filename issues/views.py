@@ -51,6 +51,7 @@ def issue_create(request):
         return redirect(reverse("issues:intro"))
 
     name = user.first_name
+    print(name)
     if name == "임진석" or "심동현" or "임진아":
         team = "수출입"
 
