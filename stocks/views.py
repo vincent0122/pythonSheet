@@ -1,5 +1,13 @@
 from django.shortcuts import render
-from .apps import cleaning_datas, making_graph, date_setting
+from .apps import (
+    cleaning_datas,
+    making_graph,
+    date_setting,
+    basic_setting,
+    get_current_stock,
+)
+
+items = basic_setting["items"]
 
 
 def get_html(request):
@@ -36,8 +44,11 @@ def stock_future(request):
     )
 
 
-# def stock_future(request):
-#     return render(
-#         request,
-#         "stocks/stock_future.html",
-#     )
+def stock_item(request):
+    item = request.GET.get("product")
+    current_stock = get_current_stock()
+    value = current_stock["제품명"] == item
+    value2 = current_stock[value]
+    print(value2.수량)
+
+    return render(request, "stocks/stock_item.html", {"items": items})

@@ -132,6 +132,30 @@ def date_setting():
     return date_data
 
 
+def get_current_stock():
+    items = basic_setting["items"]
+    sheet_id = get_sheetsId()["factory_report"]
+    gc = get_google()
+    result = gc.open_by_key(sheet_id).worksheet("재고현황")
+    values = result.get("a3:g100")
+    header = values.pop(0)
+    values_df = pd.DataFrame(values, columns=header)
+    # date_data = date_setting()
+
+    values2 = values_df.iloc[:, [0, 2]]  # 원료 현재고 가져오기
+    values2.columns = ["제품명", "수량"]
+    values3 = values_df.iloc[:, [4, 6]]  # 제품 현재고 가져오기
+    values3.columns = ["제품명", "수량"]
+    values_df = values2.append(values3)  # 두개 합치기
+    values_df.columns = ["제품명", "수량"]
+    values_df = values_df[values_df["제품명"].isin(items)]  # 빈행 삭제
+    # values_df["Date"] = date_data["tod"]  # 오늘 날짜 추가하기
+    # del values_df["stock2"]  # 기존 변수 삭제
+    # del values_df["stock3"]  # 기존 변수 삭제
+
+    return values_df
+
+
 def cleaning_datas():
     items = basic_setting["items"]
     period = basic_setting["period_to_check"]
@@ -142,7 +166,6 @@ def cleaning_datas():
 
     def change_comma_to_float(key, col_name):
         values_df[key].loc[:, col_name] = values_df[key][col_name].str.replace(",", "")
-        print(values_df[key].loc[:, col_name])
         values_df[key].loc[:, col_name] = values_df[key][col_name].astype(float)
         return values_df
 

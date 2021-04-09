@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% load static %} 
+
+{% block page_title %}
+    아이템별 재고
+{% endblock page_title %}
+
+{% block content %}
+<div class="container w-screen mx-auto">
+    <div class="flex flex-wrap">
+        {% for i in items %}
+        <form method="get" action="{% url 'stocks:stock_item' %}">
+        <input type="submit" class="border-2 bg-gray-100 rounded mx-2 mb-2 hover:bg-blue-200 w-auto" name="product" value="{{i}}">
+        </form>
+        {% endfor %}
+    </div>
+
+    <div class="text-3xl mt-8 text-center">현 재고 :</div>
+    <div class="mt-12 flex justify-between mx-16">
+        <div class="bg-blue-200 rounded item-center">
+        ETA
+        </div>
+        <div>
+        최근판매
+        </div>
+    </div>
+</div>
+{% endblock content %}
