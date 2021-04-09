@@ -16,6 +16,7 @@ api_key = os.getenv("API_KEY")
 base_key = os.getenv("BASE_ID")
 airtable = Airtable(base_key, "dataBase", api_key)
 air_view = os.getenv("AIR_VIEW")
+print(air_view)
 
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"

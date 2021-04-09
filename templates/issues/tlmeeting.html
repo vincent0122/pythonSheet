@@ -6,11 +6,11 @@
 
 {% block content %} 
 
-<div class="container w-screen mx-auto flex">
+<div class="container w-screen mx-auto flex flex-col">
 <form method="get" action="{% url 'issues:checkUncheck' %}">
-<div class="flex flex-col">
-{% for d in datas %}
-    <span>{{d.fields.날짜}} {{d.fields.작성자}} ID={{d.fields.ID}}
+    <div class="flex flex-col mx-4">
+    {% for d in datas %}
+    <span class="text-sm">{{d.fields.날짜}} {{d.fields.작성자}} (ID.{{d.fields.ID}})
     <input type="checkbox" name="idon" value={{d.id}} checked>
     </span>
     <span class="my-2">[{{d.fields.거래처}}] {{d.fields.내용}}</span>
@@ -19,10 +19,14 @@
             <a href={{a.url}}>{{a.filename}}</a>
         {% endfor %}
     </div>  
-{% endfor %}
-</div>
-<input class="bluebtn px-2 mb-8" type="submit" value="해제" class="submit" />
+    {% endfor %}
+    </div>
 </form>
+    <div class="ml-4">
+    <input class="bluebtn px-2 mb-8" type="submit" value="해제" class="submit" />
+    <a target="_blank" href="{% url 'issues:issue_import' %}"><input class="bluebtn bg-yellow-200 px-2 mb-8" type="submit" value="수정" class="submit" /></a>
+    </div>
 </div>
+
 {% endblock content %}
 
