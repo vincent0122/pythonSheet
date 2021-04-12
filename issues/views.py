@@ -16,12 +16,16 @@ api_key = os.getenv("API_KEY")
 base_key = os.getenv("BASE_ID")
 airtable = Airtable(base_key, "dataBase", api_key)
 air_view = os.getenv("AIR_VIEW")
-print(air_view)
+
 
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
     root_url = "https://hpdjango.herokuapp.com/"
+
+import_export = ["임진석", "심동현", "임진아", "진석"]
+sales = ["임진강", "나준호"]
+total = ["정소영", "이선화", "추승혜", "송혜주"]
 
 
 def intro(request):
@@ -52,10 +56,6 @@ def issue_create(request):
         return redirect(reverse("issues:intro"))
 
     name = user.first_name
-
-    import_export = ["임진석", "심동현", "임진아", "진석"]
-    sales = ["임진강", "나준호"]
-    total = ["정소영", "이선화", "추승혜", "송혜주"]
 
     if name in import_export:
         team = "수출입"
@@ -268,8 +268,12 @@ def myissue(request):
     user = request.user
     name = user.first_name
 
-    if name == "진석" or "동현":
+    if name in import_export:
         team = "수출입"
+    if name in sales:
+        team = "영업"
+    if name in total:
+        team = "총무"
 
     matches = filter(lambda el: el["fields"]["작성자"] == name, datas)
     team_issues = filter(

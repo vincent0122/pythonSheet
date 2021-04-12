@@ -8,7 +8,8 @@
 
 <div class="container w-screen mx-auto flex flex-col">
     <form method="get" action="{% url 'issues:checkUncheck_issue' %}" id="recheck">
-    <div class="flex flex-col border-2 border-b border-gray-500 mb-4 mx-4">
+    <div class="flex flex-col border-3 border-b border-gray-500 mb-4 mx-4">
+    <span class="text-xl mb-4 text-blue-700 font-extrabold">My Issue</span>
     {% for m in matches %}
     <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} (ID.{{m.fields.ID}})
 
@@ -23,12 +24,13 @@
     {% endfor %}
     </div>
 
-    <div class="flex flex-col border-2 border-b border-gray-500 mb-4 mx-4">
+    <div class="flex flex-col border-3 border-b border-gray-500 mb-4 mx-4">
+    <span class="text-xl mb-4 text-blue-700 font-extrabold">Team Issue</span>
     {% for m in team_issues %}
     <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} (ID.{{m.fields.ID}})
     <input type="checkbox" name="idon" value={{m.id}} checked>
     </span>
-    <span class="my-2">[{{m.fields.거래처}}] {{m.fields.내용}}</span>
+    <span class="my-2 text-sm">[{{m.fields.거래처}}] {{m.fields.내용}}</span>
     <div class="flex mb-4 text-sm">
         {% for a in m.fiedls.Attachments %}
             <a href={{a.url}}>{{a.filename}}</a>
@@ -37,12 +39,13 @@
     {% endfor %}
     </div>
 
-    <div class="flex flex-col border-2 border-b border-gray-500 mb-4 mx-4">
+    <div class="flex flex-col border-3 border-b border-gray-500 mb-4 mx-4">
+    <span class="text-xl mb-4 text-blue-700 font-extrabold">Total Issue</span>
     {% for m in datas %}
     <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} (ID.{{m.fields.ID}})
     <input type="checkbox" name="idon" value={{m.id}} checked>
     </span>
-    <span class="my-2">[{{m.fields.거래처}}] {{m.fields.내용}}</span>
+    <span class="my-2 text-sm">[{{m.fields.거래처}}] {{m.fields.내용}}</span>
     <div class="flex mb-4 text-sm">
         {% for a in m.fiedls.Attachments %}
             <a href={{a.url}}>{{a.filename}}</a>

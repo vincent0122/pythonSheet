@@ -13,9 +13,9 @@ def cost_update(request):
     if amount != None:
         when = time.strftime("%y-%m-%d %H:%M:%S")
         detail = request.GET.get("detail")
-        etc = request.GET.get("etc")
+        company = request.GET.get("etc")
         user = user_models.User.objects.get(email=request.user).first_name
-        update_cell(when, user, amount, detail, etc)
+        update_cell(when, user, amount, detail, company)
         return render(request, "cost/update.html")
 
     else:
