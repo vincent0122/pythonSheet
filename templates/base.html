@@ -15,7 +15,9 @@
 	
 			{% include "partials/nav.html" %}
 		</header>
+		{% if user.is_authenticated %}
 		{% block content %}{% endblock %} 
+		{% endif %}
 		{% include "partials/footer.html" %}
 	</body>
 </html>

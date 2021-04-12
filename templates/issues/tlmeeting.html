@@ -7,7 +7,7 @@
 {% block content %} 
 
 <div class="container w-screen mx-auto flex flex-col">
-<form method="get" action="{% url 'issues:checkUncheck' %}">
+<form method="get" action="{% url 'issues:checkUncheck' %}" id="recheck">
     <div class="flex flex-col mx-4">
     {% for d in datas %}
     <span class="text-sm">{{d.fields.날짜}} {{d.fields.작성자}} (ID.{{d.fields.ID}})
@@ -23,7 +23,7 @@
     </div>
 </form>
     <div class="ml-4">
-    <input class="bluebtn px-2 mb-8" type="submit" value="해제" class="submit" />
+    <input class="bluebtn px-2 mb-8" type="submit" value="해제" form="recheck" />
     <a target="_blank" href="{% url 'issues:issue_import' %}"><input class="bluebtn bg-yellow-200 px-2 mb-8" type="submit" value="수정" class="submit" /></a>
     </div>
 </div>

@@ -49,9 +49,14 @@ def stock_item(request):
     current_stock = get_current_stock()
     value = current_stock["제품명"] == item
     value = current_stock[value]
-    name = value.values[0][0]
-    value = value.values[0][1]
-    print(value)
+    print(len(value.values))
+
+    if len(value.values) > 0:
+        name = value.values[0][0]
+        value = value.values[0][1]
+    else:
+        name = ""
+        value = ""
 
     return render(
         request,
