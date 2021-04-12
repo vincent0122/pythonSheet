@@ -8,7 +8,7 @@
 
 <div class="container w-screen mx-auto flex flex-col">
     <form method="get" action="{% url 'issues:checkUncheck_issue' %}" id="recheck">
-    <div class="flex flex-col border-b border-red-100 mb-4 mx-4">
+    <div class="flex flex-col border-2 border-b border-gray-500 mb-4 mx-4">
     {% for m in matches %}
     <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} (ID.{{m.fields.ID}})
 
@@ -23,7 +23,7 @@
     {% endfor %}
     </div>
 
-    <div class="flex flex-col border-b border-red-100 mb-4 mx-4">
+    <div class="flex flex-col border-2 border-b border-gray-500 mb-4 mx-4">
     {% for m in team_issues %}
     <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} (ID.{{m.fields.ID}})
     <input type="checkbox" name="idon" value={{m.id}} checked>
@@ -37,7 +37,7 @@
     {% endfor %}
     </div>
 
-    <div class="flex flex-col border-b border-red-100 mb-4 mx-4">
+    <div class="flex flex-col border-2 border-b border-gray-500 mb-4 mx-4">
     {% for m in datas %}
     <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} (ID.{{m.fields.ID}})
     <input type="checkbox" name="idon" value={{m.id}} checked>
