@@ -48,7 +48,13 @@ def stock_item(request):
     item = request.GET.get("product")
     current_stock = get_current_stock()
     value = current_stock["제품명"] == item
-    value2 = current_stock[value]
-    print(value2.수량)
+    value = current_stock[value]
+    name = value.values[0][0]
+    value = value.values[0][1]
+    print(value)
 
-    return render(request, "stocks/stock_item.html", {"items": items})
+    return render(
+        request,
+        "stocks/stock_item.html",
+        {"items": items, "value": value, "name": name},
+    )
