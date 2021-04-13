@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %} 
+
+{% if ID != None %}
+<div class="flex justify-center">
+<form method="get" action="{% url 'issues:issue_edit' %}">
+    <div class="flex flex-col justify-center text-base border border-black rounded mx-2 px-4 py-2 w-full mb-8">
+        <input type="hidden" value={{ID}} name="ID" size="10">
+        <div class="flex py-4 justify-between text-center">
+            <span>날짜 : <input class="border-b border-black pl-3" type="text" value={{date}} name="date" onfocus="(this.type='date')" onblur="(this.type='text')" size="10" readonly></span>
+            <span>작성자 : <input class="border-b border-black pl-3" type="text" value={{writer}} name="writer" size="5" readonly></span>
+            <span>거래처 :</span><input class="border-b border-black pl-2 text-center" type="text" value={{customer}} name="customer" size="15" readonly></span>
+        </div>
+       <span class="py-2">내용</span><textarea class = "border border-black px-4 rounded w-full overflow-ellipsis" name="detail" rows ="5" cols="30" readonly>{{detail}}</textarea>
+       
+       <span class="px-2 my-4 text-center">Comments</span>
+       {% for c in comment %}
+       <span class="border-b border-gray-400 mb-4 text-sm text-blue-700">{{c}}</span>
+       {% endfor %}
+
+       <textarea class = "border border-black pl-4 rounded w-full overflow-ellipsis" name="comments" rows ="5" cols="30">{{comments}}</textarea>
+
+       <div class="flex">
+            <span class="px-1 text-sm mt-4">회의
+            {% if check == True %}
+            <input type="checkbox" name="check" checked >
+            {% else %}
+            <input type="checkbox" name="check" ></span>
+            {% endif %}
+            <span class="px-1 text-sm mt-4">진행중
+            {% if ing == True %}
+            <input type="checkbox" name="ing" checked >
+            {% else %}
+            <input type="checkbox" name="ing" ></span>
+            {% endif %}
+        </div>
+       <input class = "bg-red-200 rounded pl-4 text-base w-full" type="submit" value="추가">
+        </form>
+    </div>
+    <div class="flex justify-center py-8">
+        {% if attachments.length > 0 %}
+        <div>첨부파일 :
+        {% for attach in attachments %}
+        <a href = {{attach.0}}>{{attach.1}}</a>
+        {% endfor %}
+        </div>        
+        <form method="get" action="{% url 'issues:attachments_edit' %}">
+        <input class = "ml-6 order border-black bg-blue-200 rounded px-2 text-base" type="submit" value="수정">
+        <input type="hidden" value={{ID}} name="ID"></form>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+

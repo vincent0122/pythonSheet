@@ -1,4 +1,5 @@
 import os
+import time
 from airtable import Airtable
 from dotenv import load_dotenv
 from django.views.generic import FormView, DetailView, UpdateView
@@ -123,10 +124,80 @@ def id_import(request):
     customer = data["거래처"]
     detail = data["내용"]
 
+    if data.get("comments") is not None:
+        comments = data["comments"]
+        comment = comments.split("***")
+        comment.pop(len(comment) - 1)
+    else:
+        comment = None
+
     if data.get("팀장회의") is not None:
         check = data["팀장회의"]
     else:
         check = False
+
+    if data.get("진행중") is not None:
+        ing = data["진행중"]
+    else:
+        ing = False
+
+    if data.get("Attachments") is not None:
+        attachments = []
+        for attach in data["Attachments"]:
+            line = []
+            line.append(attach["url"])
+            line.append(attach["filename"])
+            attachments.append(line)
+    else:
+        attachments = None
+
+    if len(data) < 1:
+        return render(request, "issues/id_import.html")
+
+    else:
+        return render(
+            request,
+            "issues/id_import.html",
+            {
+                "date": date,
+                "writer": writer,
+                "customer": customer,
+                "detail": detail,
+                "ID": ID,
+                "attachments": attachments,
+                "air_view": air_view,
+                "check": check,
+                "ing": ing,
+                "comment": comment,
+            },
+        )
+
+
+def id_comments(request):
+    ID = request.GET.get("ID", 1)
+    data = airtable.search("ID", ID)[0]["fields"]
+    date = data["날짜"]
+    writer = data["작성자"]
+    customer = data["거래처"]
+    detail = data["내용"]
+
+    if data.get("comments") is not None:
+        comments = data["comments"]
+    else:
+        comments = ""
+
+    comment = comments.split("***")
+    comment.pop(len(comment) - 1)
+
+    if data.get("팀장회의") is not None:
+        check = data["팀장회의"]
+    else:
+        check = False
+
+    if data.get("진행중") is not None:
+        ing = data["진행중"]
+    else:
+        ing = False
 
     attachments = []
 
@@ -138,12 +209,12 @@ def id_import(request):
             attachments.append(line)
 
     if len(data) < 1:
-        return render(request, "issues/issue_import.html")
+        return render(request, "issues/id_comments.html")
 
     else:
         return render(
             request,
-            "issues/issue_import.html",
+            "issues/id_comments.html",
             {
                 "date": date,
                 "writer": writer,
@@ -153,22 +224,58 @@ def id_import(request):
                 "attachments": attachments,
                 "air_view": air_view,
                 "check": check,
+                "ing": ing,
+                "comment": comment,
             },
         )
 
 
 def issue_edit(request):
+    user = request.user
+    name = user.first_name
+    when = time.strftime("%y-%m-%d %H:%M")
+
     record = airtable.match("ID", request.GET.get("ID"))
+    if record["fields"].get("comments"):
+        comment = record["fields"]["comments"]
+    else:
+        comment = ""
     customer = request.GET.get("customer")
     detail = request.GET.get("detail")
     check = request.GET.get("check")
+    ing = request.GET.get("ing")
+
+    if request.GET.get("comments") is not None:
+        comments = request.GET.get("comments")
+        comments = f"({name}) {comments} ({when})***"
+        comments = comment + comments
+    else:
+        comments = ""
+
     if check == "on":
         check = True
-    fields = {"내용": detail, "거래처": customer, "팀장회의": check}
+    else:
+        check = False
+
+    if ing == "on":
+        ing = True
+    else:
+        ing = False
+
+    fields = {
+        "내용": detail,
+        "거래처": customer,
+        "팀장회의": check,
+        "진행중": ing,
+        "comments": comments,
+    }
 
     airtable.update(record["id"], fields)
 
-    return redirect(reverse("core:home"))
+    if ing == True:
+        return redirect(reverse("issues:myissue"))
+    else:
+        return redirect(reverse("issues:tlmeeting"))
 
 
 def attachment_edit(request):
@@ -218,8 +325,8 @@ def attachment_edit(request):
             file_urls.append(file_url)
 
         fields = {"Attachments": file_urls}
-        airtable.update(record["id"], fields)
         print(fields)
+        airtable.update(record["id"], fields)
         files.delete()
         issues.delete()
 
@@ -259,14 +366,37 @@ def attachment_del(request):
 
 
 def tlmeeting(request):
+    user = request.user
+    name = user.first_name
     datas = airtable.search("팀장회의", "1")
-    return render(request, "issues/tlmeeting.html", {"datas": datas})
+
+    for d in datas:
+        if d["fields"].get("comments") is not None:
+            comments = d["fields"]["comments"]
+            comments = comments.split("***")
+            comments.pop(len(comments) - 1)
+            d["fields"]["comments"] = comments
+            d["fields"]["length"] = len(comments)
+
+    return render(
+        request,
+        "issues/tlmeeting.html",
+        {"datas": datas, "name": name},
+    )
 
 
 def myissue(request):
     datas = airtable.search("진행중", "1")
     user = request.user
     name = user.first_name
+
+    for d in datas:
+        if d["fields"].get("comments") is not None:
+            comments = d["fields"]["comments"]
+            comments = comments.split("***")
+            comments.pop(len(comments) - 1)
+            d["fields"]["comments"] = comments
+            d["fields"]["length"] = len(comments)
 
     if name in import_export:
         team = "수출입"
@@ -280,14 +410,13 @@ def myissue(request):
         lambda el: el["fields"]["부서"] == team and el["fields"]["작성자"] != name, datas
     )
     datas = filter(
-        lambda el: el["fields"]["부서"] == team and el["fields"]["부서"] != team, datas
+        lambda el: el["fields"]["작성자"] != name and el["fields"]["부서"] != team, datas
     )
 
-    # matching_user = dict(filter(lambda el:))
     return render(
         request,
         "issues/myissue.html",
-        {"matches": matches, "team_issues": team_issues, "datas": datas},
+        {"matches": matches, "team_issues": team_issues, "datas": datas, "name": name},
     )
 
 
