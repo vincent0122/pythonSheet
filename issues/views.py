@@ -7,8 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
 from users import models as user_models
-from apps import buyers
-from . import models, forms
+from . import models, forms, apps
 from datetime import datetime
 from config.settings import DEBUG
 
@@ -112,7 +111,9 @@ def issue_create(request):
     issues.delete()
 
     return render(
-        request, "issues/issue_create.html", {"file_form": file_form, "buyers": buyers}
+        request,
+        "issues/issue_create.html",
+        {"file_form": file_form, "buyers": apps.buyers},
     )
 
 

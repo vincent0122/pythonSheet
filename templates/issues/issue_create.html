@@ -18,7 +18,13 @@
 	<div class="text-center py-4">
 	<i class="fas fa-building text-gray-500 text-sm"></i>
 	거래처
-	<input class="border-b border-gray-400 w-2/4 mx-8" type="text" name="customer" />
+	<input class="border-b border-gray-400 w-2/4 mx-8" list="buyers" name="customer" id="buyers-choice" />
+	<datalist id="buyers">
+		{% for b in buyers %}
+		<option value="{{b}}"></option>
+		{% endfor %}
+	</datalist>
+
 	</div>
 	<div class="mx-2 my-2 pl-4 text-xs">{{ file_form }}</div>
 </div>
@@ -34,7 +40,6 @@
 </div>
 	
 </form>
-{{buyers}}
 
 </h5>
 

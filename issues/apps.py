@@ -6,6 +6,8 @@ class IssuesConfig(AppConfig):
 
 
 buyers = [
+    "한펠 사무실",
+    "한펠 공장",
     "153양봉원",
     "가야농산",
     "강남양봉산업(천지)",
@@ -211,4 +213,5 @@ buyers = [
     "L&P",
     "OEM",
     "VAC",
+    "기타",
 ]
