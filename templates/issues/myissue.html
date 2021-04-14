@@ -12,10 +12,10 @@
 <form method="get" action="{% url 'issues:id_comments' %}" id="comments">
 </form>
     <form method="get" action="{% url 'issues:checkUncheck_issue' %}" id="recheck">
-    <div class="flex flex-col border-3 border-b border-gray-500 mb-4 mx-4">
-    <span class="text-xl underline mb-4 text-gray-700 font-extrabold">My Issue</span>
+    <div class="flex flex-col border-3 border-b border-gray-500 mx-4">
+    <span class="text-xl underline text-gray-700 font-extrabold">My Issue</span>
     {% for m in matches %}
-    <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}} 
+    <span class="mt-8 text-sm">{{m.fields.날짜}} {{m.fields.작성자}} 
     <input type="checkbox" name="idon" value={{m.id}} checked>
     {% if name == m.fields.작성자 %}
     <button class="bluebtn py-0 px-1" name="ID" value={{m.fields.ID}} form="edit">수정</button>
@@ -40,9 +40,9 @@
     </div>
 
     <div class="flex flex-col border-3 border-b border-gray-500 mb-4 mx-4">
-    <span class="text-xl underline mb-4 text-gray-700 font-extrabold">Team Issue</span>
+    <span class="text-xl underline text-gray-700 font-extrabold">Team Issue</span>
     {% for m in team_issues %}
-    <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}}
+    <span class="text-sm mt-8">{{m.fields.날짜}} {{m.fields.작성자}}
     <input type="checkbox" name="idon" value={{m.id}} checked>
     {% if name == m.fields.작성자 %}
     <button class="bluebtn py-0 px-1" name="ID" value={{m.fields.ID}} form="edit">수정</button>
@@ -68,11 +68,11 @@
     </div>
 
     <div class="flex flex-col border-3 border-b border-gray-500 mb-4 mx-4">
-    <span class="text-xl underline mb-4 text-gray-700 font-extrabold">Total Issue</span>
+    <span class="text-xl underline text-gray-700 font-extrabold">Total Issue</span>
     {{datas.0}}
     {% for m in datas %}
     
-    <span class="text-sm">{{m.fields.날짜}} {{m.fields.작성자}}
+    <span class="text-sm mt-8">{{m.fields.날짜}} {{m.fields.작성자}}
     <input type="checkbox" name="idon" value={{m.id}} checked>
     {% if name == m.fields.작성자 %}
     <button class="bluebtn py-0 px-1" name="ID" value={{m.fields.ID}} form="edit">수정</button>

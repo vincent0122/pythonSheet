@@ -4,24 +4,23 @@
 <div class="flex justify-center">
 <form method="get" action="{% url 'issues:attachments_edit' %}" id="attachment_edit"></form>
 <form method="get" action="{% url 'issues:issue_edit' %}">
-    <div class="flex flex-col justify-center text-base border border-black rounded mx-2 px-4 py-2 w-full mb-8">
+    <div class="flex flex-col justify-center text-base border border-black rounded mx-2 px-4 py-2 mb-8">
         <input type="hidden" value={{ID}} name="ID" size="10">
-        <div class="flex py-4 justify-between text-center">
-            <span>날짜 : <input class="border-b border-black pl-3" type="text" value={{date}} name="date" onfocus="(this.type='date')" onblur="(this.type='text')" size="10"></span>
-            <span>작성자 : <input class="border-b border-black pl-3" type="text" value={{writer}} name="writer" size="5"></span>
-            <span>거래처 :</span><input class="border-b border-black pl-2 text-center" type="text" value={{customer}} name="customer" size="15"></span>
+        <div class="flex flex-col py-4 justify-between text-left text-xs md:flex-shrink-0 md:w-2xl">
+            <span class="md:ml-4 md:text-sm">작성일 : <input class="border-b border-black text-center" type="text" value={{date}} name="date" onfocus="(this.type='date')" onblur="(this.type='text')" size="10" readonly></span>
+            <span class="md:ml-4 md:text-sm md:my-2">작성자 : <input class="border-b border-black text-center" type="text" value={{writer}} name="writer" size="10" readonly></span>
+            <span class="md:ml-4 md:text-sm">거래처 : <input class="border-b border-black text-center" type="text" value={{customer}} name="customer" size="10" readonly></span>
         </div>
-       <span class="py-2">내용</span><textarea class = "border border-black px-4 rounded w-full overflow-ellipsis" name="detail" rows ="5" cols="30">{{detail}}</textarea>
+             <span class="py-2 ">내용</span><textarea class = "border border-black rounded w-full overflow-ellipsis text-xs px-4 md:text-sm md:w-75vh" name="detail" rows ="5" cols="30" readonly>{{detail}}</textarea>
        {% if attachments != None %}
-        <div class="flex justify-center py-8">
-        <div>첨부파일 :
+        <div class="flex pt-4 pb-2">
+        <div class="text-xs md:text-sm">첨부파일 : </div>
         {% for attach in attachments %}
-        <a href = {{attach.0}} target="_blank">{{attach.1}}</a>
+        <a class="text-xs md:text-sm" href = {{attach.0}} target="_blank">{{attach.1}}</a>
         {% endfor %}
         </div>        
-        <input class = "ml-6 order border-black bg-blue-200 rounded px-2 text-base" type="submit" value="파일수정" form="attachment_edit">
+        <input class = "border border-black bg-blue-200 w-1/4 rounded text-xs md:text-sm" type="submit" value="파일수정" form="attachment_edit">
         <input type="hidden" value={{ID}} name="ID" form="attachment_edit">
-        </div>
         {% endif %}
     
        {% if comment != None %}

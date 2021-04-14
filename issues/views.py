@@ -92,6 +92,7 @@ def issue_create(request):
         file_url = dict(url=f"{root_url}media/{file_name}")
         file_urls.append(file_url)
     if issue:
+        print(file_urls)
         airtable.insert(
             {
                 "부서": team,
