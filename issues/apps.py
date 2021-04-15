@@ -255,7 +255,7 @@ buyers_beforeSort = [
     "벌통",
     "소초광",
     "대두박",
-    "ANC",
+    "에이엔씨인터내셔널",
     "국민은행",
     "기업은행",
     "양봉 기자재",
@@ -275,4 +275,4 @@ buyers_beforeSort = [
     "수출",
 ]
 
-buyers = buyers_beforeSort.sort()
+buyers = sorted(buyers_beforeSort)
