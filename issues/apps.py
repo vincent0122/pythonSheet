@@ -270,8 +270,8 @@ buyers_beforeSort = [
     "유경지대",
     "윤병수회계사무소",
     "충남도청",
-    "수출",
     "필리핀(수출)",
+    "수출",
 ]
 
 buyer = buyers_beforeSort.sort()
