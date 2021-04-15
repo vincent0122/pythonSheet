@@ -92,7 +92,6 @@ def issue_create(request):
         file_url = dict(url=f"{root_url}media/{file_name}")
         file_urls.append(file_url)
     if issue:
-        print(file_urls)
         airtable.insert(
             {
                 "부서": team,
@@ -373,7 +372,7 @@ def attachment_del(request):
 def tlmeeting(request):
     user = request.user
     name = user.first_name
-    datas = airtable.search("팀장회의", "1")
+    datas = airtable.search("팀장회의", "1", sort=[("입력시간", "desc")])
 
     for d in datas:
         if d["fields"].get("comments") is not None:
@@ -391,7 +390,7 @@ def tlmeeting(request):
 
 
 def myissue(request):
-    datas = airtable.search("진행중", "1")
+    datas = airtable.search("진행중", "1", sort=[("입력시간", "desc")])
     user = request.user
     name = user.first_name
 
