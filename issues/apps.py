@@ -275,4 +275,4 @@ buyers_beforeSort = [
     "수출",
 ]
 
-buyer = buyers_beforeSort.sort()
+buyers = buyers_beforeSort.sort()
