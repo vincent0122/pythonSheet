@@ -4,8 +4,7 @@ from django.apps import AppConfig
 class IssuesConfig(AppConfig):
     name = "issues"
 
-
-buyers = [
+buyers_beforeSort = [
     "한펠 사무실",
     "한펠 공장",
     "(주)허니텍",
@@ -274,3 +273,5 @@ buyers = [
     "수출",
     "필리핀(수출)",
 ]
+
+buyer = buyers_beforeSort.sort()
