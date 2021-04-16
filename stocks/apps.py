@@ -32,7 +32,7 @@ basic_setting = {
         "젤라틴(고)",
         "젤라틴(중)",
         "젤라틴(저)",
-        "변성 타피오카",
+        "변성타피오카",
         "바나나분말(톤백)",
         "바나나분말(지대)",
         "위너",
@@ -161,6 +161,7 @@ def cleaning_datas():
     period = basic_setting["period_to_check"]
     date_data = date_setting()
     values_df = get_sheet_values()
+    print(values_df)
     # values_df['stock'] = values_df['stock'].drop(
     #    [values_df['stock'].index[0], values_df['stock'].index[1]])
 
@@ -201,6 +202,7 @@ def cleaning_datas():
 
     values_df["eta"] = values_df["eta"].iloc[:, [0, 5, 6, 16, 17]]  # 16,17은 etd,eta
     values_df["eta"] = values_df["eta"][values_df["eta"].ETA != ""]
+    values_df["eta"] = values_df["eta"][values_df["eta"].계약수량 != ""]
     values_df["eta"] = values_df["eta"][values_df["eta"].수입자 != "대한산업"]
     values_df["eta"].loc[:, "계약수량"] = values_df["eta"].계약수량.astype(float)
     values_df["eta"].계약수량 = values_df["eta"].계약수량 * 1000

@@ -460,6 +460,13 @@ def checkUncheck_issue(request):  # 자꾸 순환된다..
     return redirect(reverse("core:home"))
 
 
+def delete(request):
+    ID = request.GET.get("ID", 1)
+    airtable.delete_by_field("ID", ID)
+
+    return redirect(reverse("core:home"))
+
+
 # # 첨부파일 수정하기
 # # 삭제하기
 # http://127.0.0.1:8000/media/files/Screen_Shot_2021-03-24_at_16.53.56_PM_DyeHxtJ.png

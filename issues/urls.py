@@ -15,4 +15,5 @@ urlpatterns = [
     path("myissue/", views.myissue, name="myissue"),
     path("checkUncheck/", views.checkUncheck, name="checkUncheck"),
     path("checkUncheck_issue/", views.checkUncheck_issue, name="checkUncheck_issue"),
+    path("delete/", views.delete, name="delete"),
 ]
