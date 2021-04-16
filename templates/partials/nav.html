@@ -40,11 +40,16 @@
 				<div class="px-1 no-underline hover:underline">비용</div>
 				<div class="dropdown-content">
 					<a href="{% url 'cost:cost_update' %}">법카입력</a>
-					<a href="#"></a>
+					<a href="{% url 'users:hanpel_user' %}">친구들</a>
 					<a href="#"></a>
 				</div>
 	</div>	
-	<div class="ml-1"><a href="{% url 'users:logout' %}">Log out</a>
+	<div class="ml-1">
+	
+	<div class="flex mx-auto justify-between items-center">
+	<img width="40px" class="border-1 border-black rounded-full mr-2" src="{{user.last_name}}" />
+	<a class="h-full align-middle" href="{% url 'users:logout' %}">Log out</a>
+	</div>
 	</div>
 
 

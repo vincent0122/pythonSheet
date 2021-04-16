@@ -1,11 +1,12 @@
 import os
 import requests
+import json
 from django.views.generic import FormView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
-from . import forms, models
+from . import forms, models, apps
 from django.shortcuts import render
 from config.settings import DEBUG
 
@@ -91,6 +92,7 @@ def kakao_callback(request):
         )
 
         token_json = token_request.json()
+        print(token_json)
         error = token_json.get("error", None)
         if error is not None:
             raise KakaoException()
@@ -109,6 +111,8 @@ def kakao_callback(request):
         profile_image = properties.get("profile_image")
         try:
             user = models.User.objects.get(email=email)
+            profile_name = user.first_name
+            profile_img = apps.profile[profile_name]
             if user.login_method != models.User.LOGING_KAKAO:
                 raise KakaoException()
         except models.User.DoesNotExist:
@@ -132,3 +136,33 @@ def kakao_callback(request):
         return redirect(reverse("core:home"))
     except KakaoException:
         return redirect(reverse("users:login"))
+
+
+def hanpel_user(request):
+    access_token = os.environ.get("ACCESS_TOKEN")
+    url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+
+    # headers = {
+    #     "Authorization": "Bearer "
+    #     + "UtnxkTZ56Mx7B3Bc_ofMaTsQfPV4oTWU_muhSgopb7gAAAF42Y2Bxw"
+    # }
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    data = {
+        "template_object": json.dumps(
+            {
+                "object_type": "text",
+                "text": "Hello, world!",
+                "link": {"web_url": "www.naver.com"},
+            }
+        )
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    print(response.status_code)
+    if response.json().get("result_code") == 0:
+        print("메시지를 성공적으로 보냈습니다.")
+        return redirect(reverse("core:home"))
+    else:
+        print("메시지를 성공적으로 보내지 못했습니다. 오류메시지 : " + str(response.json()))
+        return redirect(reverse("core:home"))

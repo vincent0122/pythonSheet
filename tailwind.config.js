@@ -6,6 +6,9 @@ module.exports = {
 				"50vh": "50vh",
 				"75vh": "75vh",
 			},
+			wihe: {
+				"100px": "100px",
+			},
 			borderRadius: {
 				xl: "1.5rem",
 			},
