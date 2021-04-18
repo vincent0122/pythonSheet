@@ -13,6 +13,7 @@ urlpatterns = [
     path("attachments_del/", views.attachment_del, name="attachments_del"),
     path("tlmeeting/", views.tlmeeting, name="tlmeeting"),
     path("myissue/", views.myissue, name="myissue"),
+    path("mypage/", views.mypage, name="mypage"),
     path("checkUncheck/", views.checkUncheck, name="checkUncheck"),
     path("checkUncheck_issue/", views.checkUncheck_issue, name="checkUncheck_issue"),
     path("delete/", views.delete, name="delete"),

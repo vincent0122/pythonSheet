@@ -10,6 +10,11 @@ from . import forms, models, apps
 from django.shortcuts import render
 from config.settings import DEBUG
 
+# 로그인 할 때, access_token을 받는다. 클로져로 넘겨서 사용하는건 되는데
+# 나는 다른 py파일인 issues.view.py에서 access_token을 인자로 받는 함수를 실행시켜야 한다.
+# 로그인된 상태에서 access_token을 request로 받아봐야 되는데, 이게 가능한지 모르겠다.
+# 로그인시 발급된 access_token을 따로 저장해두었다가 사용하는 법 (근데 이건 6시간후 expire됨)
+# refresh token을 이용해서 계속 갱신해주는 법
 
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
@@ -74,7 +79,7 @@ def kakao_login(request):
     client_id = os.environ.get("KAKAO_ID")
     redirect_uri = f"{root_url}users/login/kakao/callback"
     return redirect(
-        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
+        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=talk_message&prompt=login"
     )
 
 
@@ -92,7 +97,6 @@ def kakao_callback(request):
         )
 
         token_json = token_request.json()
-        print(token_json)
         error = token_json.get("error", None)
         if error is not None:
             raise KakaoException()
@@ -111,8 +115,9 @@ def kakao_callback(request):
         profile_image = properties.get("profile_image")
         try:
             user = models.User.objects.get(email=email)
-            profile_name = user.first_name
-            profile_img = apps.profile[profile_name]
+            models.User.objects.filter(first_name=user.first_name).update(
+                name=access_token
+            )
             if user.login_method != models.User.LOGING_KAKAO:
                 raise KakaoException()
         except models.User.DoesNotExist:
@@ -138,27 +143,24 @@ def kakao_callback(request):
         return redirect(reverse("users:login"))
 
 
-def hanpel_user(request):
-    access_token = os.environ.get("ACCESS_TOKEN")
-    url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+def kakao_sending(request, data):
+    access_token = request.user.name
 
-    # headers = {
-    #     "Authorization": "Bearer "
-    #     + "UtnxkTZ56Mx7B3Bc_ofMaTsQfPV4oTWU_muhSgopb7gAAAF42Y2Bxw"
-    # }
+    url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
     headers = {"Authorization": f"Bearer {access_token}"}
 
     data = {
         "template_object": json.dumps(
             {
                 "object_type": "text",
-                "text": "Hello, world!",
-                "link": {"web_url": "www.naver.com"},
+                "text": data,
+                "link": {"web_url": "hpdjango.herokuapp.com"},
             }
         )
     }
 
     response = requests.post(url, headers=headers, data=data)
+
     print(response.status_code)
     if response.json().get("result_code") == 0:
         print("메시지를 성공적으로 보냈습니다.")

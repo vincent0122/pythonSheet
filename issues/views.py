@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
 from users import models as user_models
+from users import views as user_views
 from . import models, forms, apps
 from datetime import datetime
 from config.settings import DEBUG
@@ -245,12 +246,16 @@ def issue_edit(request):
     else:
         comment = ""
     customer = request.GET.get("customer")
+    date = request.GET.get("date")
     detail = request.GET.get("detail")
     check = request.GET.get("check")
     ing = request.GET.get("ing")
 
     if request.GET.get("comments") is not None:
         comments = request.GET.get("comments")
+        nl = "\n"
+        kakao_msg = f"댓글 : {comments} {nl}내용 : {detail}({date})"
+        # user_views.kakao_sending(request, kakao_msg)
         comments = f"({name}) {comments} ({when})***"
         comments = comment + comments
     else:
@@ -465,6 +470,29 @@ def delete(request):
     airtable.delete_by_field("ID", ID)
 
     return redirect(reverse("core:home"))
+
+
+def mypage(request):
+    user = request.user
+    name = user.first_name
+    datas = airtable.search("작성자", name, sort=[("입력시간", "desc")])
+
+    for d in datas:
+        if d["fields"].get("comments") is not None:
+            comments = d["fields"]["comments"]
+            comments = comments.split("***")
+            comments.pop(len(comments) - 1)
+            d["fields"]["comments"] = comments
+            d["fields"]["length"] = len(comments)
+
+    return render(
+        request,
+        "issues/mypage.html",
+        {
+            "datas": datas,
+            "name": name,
+        },
+    )
 
 
 # # 첨부파일 수정하기

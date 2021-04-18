@@ -70,7 +70,7 @@ class User(AbstractUser):
     company = models.CharField(
         choices=COMPANY_CHOICES, max_length=10, null=True, blank=True
     )
-    name = models.CharField(max_length=10, null=True, blank=True)
+    name = models.CharField(max_length=80, default="", blank=True)
     position = models.CharField(
         choices=POSITION_CHOICES, max_length=10, null=True, blank=True
     )
