@@ -48,7 +48,7 @@
 	<div class="ml-1">
 	
 	<div class="flex mx-auto justify-between items-center">
-	<img width="40px" class="border-1 border-black rounded-full mr-2" src="{{user.last_name}}" />
+	<a href="{{user.last_name}}" target="_blank"><img width="40px" class="border-1 border-black rounded-full mr-2" src="{{user.last_name}}" /></a>
 	<a class="h-full align-middle" href="{% url 'users:logout' %}">Log out</a>
 	</div>
 	</div>
