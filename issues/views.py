@@ -387,8 +387,8 @@ def tlmeeting(request):
             comments = comments.split("***")
             comments.pop(len(comments) - 1)
             d["fields"]["comment_view"] = []
-            one = {}
             for c in comments:
+                one = {}
                 comment_name = c[1:4]
                 user_alldata = user_models.User.objects.get(first_name=comment_name)
                 icon = user_alldata.last_name
@@ -396,7 +396,6 @@ def tlmeeting(request):
                 one["icon"] = icon
                 d["fields"]["comment_view"].append(one)
 
-            print(d["fields"])
             d["fields"]["length"] = len(comments)
 
     return render(
@@ -418,6 +417,15 @@ def myissue(request):
             comments.pop(len(comments) - 1)
             d["fields"]["comments"] = comments
             d["fields"]["length"] = len(comments)
+            d["fields"]["comment_view"] = []
+            for c in comments:
+                one = {}
+                comment_name = c[1:4]
+                user_alldata = user_models.User.objects.get(first_name=comment_name)
+                icon = user_alldata.last_name
+                one["data"] = c
+                one["icon"] = icon
+                d["fields"]["comment_view"].append(one)
 
     if name in import_export:
         team = "수출입"

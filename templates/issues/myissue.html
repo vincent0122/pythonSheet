@@ -30,8 +30,10 @@
         {% if m.fields.comments %}
     <details class="text-blue-700 ml-2 mt-2">
         <summary>댓글 보기 ({{m.fields.length}})</summary>
-            {% for c in m.fields.comments %}
-                <div>{{c}}</div>
+            {% for c in m.fields.comment_view %}
+                <div class="flex my-1">
+                <img src="{{c.icon}}" width="23px" class="border-1 border-black rounded-full mr-2" />
+                {{c.data}}</div>
             {% endfor %}
     </details>
     {% endif %}
@@ -58,8 +60,10 @@
         {% if m.fields.comments %}
     <details class="text-blue-700 ml-2 mt-2">
         <summary>댓글 보기 ({{m.fields.length}})</summary>
-            {% for c in m.fields.comments %}
-                <div>{{c}}</div>
+            {% for c in d.fields.comment_view %}
+                <div class="flex my-1">
+                <img src="{{c.icon}}" width="23px" class="border-1 border-black rounded-full mr-2" />
+                {{c.data}}</div>
             {% endfor %}
     </details>
     {% endif %}
@@ -88,8 +92,10 @@
         {% if m.fields.comments %}
     <details>
         <summary>댓글 보기 ({{m.fields.length}})</summary>
-            {% for c in m.fields.comments %}
-                <div>{{c}}</div>
+            {% for c in d.fields.comment_view %}
+                <div class="flex my-1">
+                <img src="{{c.icon}}" width="23px" class="border-1 border-black rounded-full mr-2" />
+                {{c.data}}</div>
             {% endfor %}
     </details>
     {% endif %}
