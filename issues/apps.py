@@ -273,6 +273,7 @@ buyers_beforeSort = [
     "충남도청",
     "필리핀(수출)",
     "수출",
+    "자몽세이프",
 ]
 
 buyers = sorted(buyers_beforeSort)
