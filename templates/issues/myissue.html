@@ -60,7 +60,7 @@
         {% if m.fields.comments %}
     <details class="text-blue-700 ml-2 mt-2">
         <summary>댓글 보기 ({{m.fields.length}})</summary>
-            {% for c in d.fields.comment_view %}
+            {% for c in m.fields.comment_view %}
                 <div class="flex my-1">
                 <img src="{{c.icon}}" width="23px" class="border-1 border-black rounded-full mr-2" />
                 {{c.data}}</div>
@@ -90,9 +90,9 @@
             <a href={{a.url}}>{{a.filename}}</a>
         {% endfor %}
         {% if m.fields.comments %}
-    <details>
+    <details class="text-blue-700 ml-2 mt-2">
         <summary>댓글 보기 ({{m.fields.length}})</summary>
-            {% for c in d.fields.comment_view %}
+            {% for c in m.fields.comment_view %}
                 <div class="flex my-1">
                 <img src="{{c.icon}}" width="23px" class="border-1 border-black rounded-full mr-2" />
                 {{c.data}}</div>
