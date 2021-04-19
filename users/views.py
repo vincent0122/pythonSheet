@@ -79,7 +79,7 @@ def kakao_login(request):
     client_id = os.environ.get("KAKAO_ID")
     redirect_uri = f"{root_url}users/login/kakao/callback"
     return redirect(
-        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=account_email,talk_message"
+        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=profile,account_email,talk_message"
     )
 
 
