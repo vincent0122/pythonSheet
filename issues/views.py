@@ -238,6 +238,7 @@ def id_comments(request):
 def issue_edit(request):
     user = request.user
     name = user.first_name
+    icon = user.last_name
     when = time.strftime("%y-%m-%d %H:%M")
 
     record = airtable.match("ID", request.GET.get("ID"))
@@ -256,8 +257,9 @@ def issue_edit(request):
         nl = "\n"
         kakao_msg = f"댓글 : {comments} {nl}내용 : {detail}({date})"
         # user_views.kakao_sending(request, kakao_msg)
-        comments = f"({name}) {comments} ({when})***"
+        comments = f"[{name}] {comments} ({when})***"
         comments = comment + comments
+
     else:
         comments = ""
 
@@ -384,7 +386,17 @@ def tlmeeting(request):
             comments = d["fields"]["comments"]
             comments = comments.split("***")
             comments.pop(len(comments) - 1)
-            d["fields"]["comments"] = comments
+            d["fields"]["comment_view"] = []
+            one = {}
+            for c in comments:
+                comment_name = c[1:4]
+                user_alldata = user_models.User.objects.get(first_name=comment_name)
+                icon = user_alldata.last_name
+                one["data"] = c
+                one["icon"] = icon
+                d["fields"]["comment_view"].append(one)
+
+            print(d["fields"])
             d["fields"]["length"] = len(comments)
 
     return render(

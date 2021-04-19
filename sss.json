@@ -1,48 +1,5 @@
-{% extends "base.html" %}
+mypage paginator 만들기
+메시지 동의 받기
+친구에게 보내기로 redirect url 변경
 
-{% block page_title %}
-    MY ISSUE
-{% endblock page_title %}
-
-{% block content %} 
-
-<div class="container w-screen mx-auto flex flex-col">
-<form method="get" action="{% url 'issues:id_import' %}" id="edit">
-</form>
-<form method="get" action="{% url 'issues:id_comments' %}" id="comments">
-</form>
-<form method="get" action="{% url 'issues:checkUncheck' %}" id="recheck">
-    <div class="flex flex-col mx-4">
-    {% for d in datas %}
-    <span class="mt-8 text-sm">{{d.fields.날짜}} {{d.fields.작성자}}
-    <input type="checkbox" name="idon" value={{d.id}} checked>
-    {% if name == d.fields.작성자 %}
-    <button class="bluebtn py-0 px-1" name="ID" value={{d.fields.ID}} form="edit">수정</button>
-    {% endif %}
-    <button class="bluebtn bg-yellow-100 py-0 px-1" name="ID" value={{d.fields.ID}} form="comments">댓글달기</button>
-    </span>
-    <span class="my-2 text-sm">[{{d.fields.거래처}}] {{d.fields.내용}}</span>
-    <div class="flex flex-col mb-8 text-sm">
-        <div class="mb-2">
-        {% for a in d.fields.Attachments %}
-            <a class="ml-2 italic underline" href={{a.url}}>{{a.filename}}</a>
-        {% endfor %}
-        </div>
-    
-    <div>{% if d.fields.comments %}
-    <details class="text-blue-700 ml-2">
-        <summary>댓글 보기 ({{d.fields.length}})</summary>
-            {% for c in d.fields.comments %}
-                <div>{{c}}</div>
-            {% endfor %}
-    </details>
-    {% endif %}
-    </div>
-    </div>  
-    {% endfor %}
-    </div>
-</form>
-</div>
-
-{% endblock content %}
-
+리플 아이콘 띄우기
