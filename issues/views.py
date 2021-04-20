@@ -23,7 +23,7 @@ air_view = os.getenv("AIR_VIEW")
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
-    root_url = "https://hpdjango.herokuapp.com/"
+    root_url = "https://hpdjangostaging.herokuapp.com/"
 
 import_export = ["임진석", "심동현", "임진아", "진석"]
 sales = ["임진강", "나준호"]
