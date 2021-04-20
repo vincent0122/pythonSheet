@@ -145,7 +145,9 @@ def kakao_callback(request):
 def kakao_sending(request, data):
     access_token = request.user.name
 
-    url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+    url = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
+    url2 = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+
     headers = {"Authorization": f"Bearer {access_token}"}
 
     data = {
@@ -154,6 +156,7 @@ def kakao_sending(request, data):
                 "object_type": "text",
                 "text": data,
                 "link": {"web_url": "hpdjango.herokuapp.com"},
+                "button_title": "한펠보드",
             }
         )
     }
