@@ -17,7 +17,6 @@ def get_sheet():  # gs 밑에다가
 
 def update_cell(when, user, amount, detail, company):
     ws = get_sheet()
-    print(amount)
     if amount != "":
         values = [when, user, amount, detail, company]
         lastRow = len(ws.col_values(1)) + 1
