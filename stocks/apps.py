@@ -140,6 +140,7 @@ def get_current_stock():
     values = result.get("a3:g100")
     header = values.pop(0)
     values_df = pd.DataFrame(values, columns=header)
+    print(values_df)
     # date_data = date_setting()
 
     values2 = values_df.iloc[:, [0, 2]]  # 원료 현재고 가져오기
