@@ -23,7 +23,7 @@ air_view = os.getenv("AIR_VIEW")
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
-    root_url = "https://hpdjangostaging.herokuapp.com/"
+    root_url = "https://hpdjango.herokuapp.com/"
 
 import_export = ["임진석", "심동현", "임진아", "진석"]
 sales = ["임진강", "나준호"]
@@ -92,6 +92,7 @@ def issue_create(request):
         file_name = f["첨부파일"]
         file_url = dict(url=f"{root_url}media/{file_name}")
         file_urls.append(file_url)
+    print(file_urls)
     if issue:
         airtable.insert(
             {
