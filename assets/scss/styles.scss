@@ -31,4 +31,11 @@
 	@apply block;
 }
 
+.placeholder {
+	textarea::placeholder {
+		color: blue;
+		font-weight: bold;
+	}
+}
+
 @tailwind utilities;
