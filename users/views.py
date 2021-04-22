@@ -21,7 +21,7 @@ if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
     # root_url = "https://hpdjango.herokuapp.com/"
-    root_url = "https://hpdjango.herokuapp.com/"
+    root_url = "https://hpdjangostaging.herokuapp.com/"
 
 
 class LoginView(FormView):
@@ -101,6 +101,7 @@ def kakao_callback(request):
         if error is not None:
             raise KakaoException()
         access_token = token_json.get("access_token")
+        refresh_token = token_json.get("refresh_token")
         profile_request = requests.get(
             "https://kapi.kakao.com/v2/user/me",
             headers={"Authorization": f"Bearer {access_token}"},
@@ -116,7 +117,7 @@ def kakao_callback(request):
         try:
             user = models.User.objects.get(email=email)
             models.User.objects.filter(first_name=user.first_name).update(
-                name=access_token
+                access_token=access_token, refresh_token=refresh_token
             )
             if user.login_method != models.User.LOGING_KAKAO:
                 raise KakaoException()
@@ -151,13 +152,35 @@ def kakao_sending(request, data, when, writer):
     if int(set_time) < int(working_start) or int(set_time) > int(working_end):
         return redirect(reverse("core:home"))
 
-    access_token = request.user.name
+    access_token = request.user.access_token
+    refresh_token = request.user.refresh_token
+    token_url = "https://kapi.kakao.com/v1/user/access_token_info"
+    token_header = {"Authorization": f"Bearer {access_token}"}
+    token_result = requests.get(token_url, headers=token_header)
+
+    if token_result.status_code == 401:
+        client_id = os.environ.get("KAKAO_ID")
+        redirect_uri = "https://kauth.kakao.com/oauth/token"
+
+        token_data = {
+            "grant_type": "refresh_token",
+            "client_id": f"{client_id}",
+            "refresh_token": f"{refresh_token}",
+        }
+
+        response = requests.post(redirect_uri, data=token_data)
+        new_token = response.json()
+        access_token = new_token["access_token"]
+        user = request.user
+        models.User.objects.filter(first_name=user.first_name).update(
+            access_token=access_token
+        )
+
     url = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
     friend_url = "https://kapi.kakao.com/v1/api/talk/friends"
 
     headers = {"Authorization": f"Bearer {access_token}"}
     result = json.loads(requests.get(friend_url, headers=headers).text)
-    print(result)
 
     friends_list = result.get("elements")
     friend_id = friends_list[0].get("uuid")
@@ -174,7 +197,7 @@ def kakao_sending(request, data, when, writer):
         ),
     }
 
-    # response = requests.post(url, headers=headers, data=data)
+    response = requests.post(url, headers=headers, data=data)
 
     print(response.status_code)
     if response.json().get("result_code") == 0:
