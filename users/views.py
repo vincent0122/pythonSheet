@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+import time
 from django.views.generic import FormView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, reverse
@@ -78,7 +79,7 @@ def kakao_login(request):
     client_id = os.environ.get("KAKAO_ID")
     redirect_uri = f"{root_url}users/login/kakao/callback"
     return redirect(
-        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=profile,account_email,talk_message"
+        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=profile,account_email,talk_message,friends"
     )
 
 
@@ -142,15 +143,27 @@ def kakao_callback(request):
         return redirect(reverse("users:login"))
 
 
-def kakao_sending(request, data):
-    access_token = request.user.name
+def kakao_sending(request, data, when, writer):
+    working_start = "08"
+    working_end = "18"
+    set_time = time.strftime("%H")
 
+    if int(set_time) < int(working_start) or int(set_time) > int(working_end):
+        return redirect(reverse("core:home"))
+
+    access_token = request.user.name
     url = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
-    url2 = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+    friend_url = "https://kapi.kakao.com/v1/api/talk/friends"
 
     headers = {"Authorization": f"Bearer {access_token}"}
+    result = json.loads(requests.get(friend_url, headers=headers).text)
+    print(result)
+
+    friends_list = result.get("elements")
+    friend_id = friends_list[0].get("uuid")
 
     data = {
+        "receiver_uuids": '["{}"]'.format(friend_id),
         "template_object": json.dumps(
             {
                 "object_type": "text",
@@ -158,10 +171,10 @@ def kakao_sending(request, data):
                 "link": {"web_url": "hpdjango.herokuapp.com"},
                 "button_title": "한펠보드",
             }
-        )
+        ),
     }
 
-    response = requests.post(url, headers=headers, data=data)
+    # response = requests.post(url, headers=headers, data=data)
 
     print(response.status_code)
     if response.json().get("result_code") == 0:

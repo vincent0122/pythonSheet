@@ -248,6 +248,7 @@ def issue_edit(request):
     else:
         comment = ""
     customer = request.GET.get("customer")
+    writer = request.GET.get("writer")
     date = request.GET.get("date")
     detail = request.GET.get("detail")
     check = request.GET.get("check")
@@ -257,7 +258,7 @@ def issue_edit(request):
         comments = request.GET.get("comments")
         nl = "\n"
         kakao_msg = f"댓글 : {comments} {nl}내용 : {detail}({date})"
-        # user_views.kakao_sending(request, kakao_msg)
+        user_views.kakao_sending(request, kakao_msg, when, writer)
         comments = f"[{name}] {comments} ({when})***"
         comments = comment + comments
 
