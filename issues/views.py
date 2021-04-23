@@ -23,7 +23,7 @@ air_view = os.getenv("AIR_VIEW")
 if DEBUG:
     root_url = "http://127.0.0.1:8000/"
 else:
-    root_url = "https://hpdjangostaging.herokuapp.com/"
+    root_url = "https://hpdjango.herokuapp.com/"
 
 import_export = ["임진석", "심동현", "임진아", "진석"]
 sales = ["임진강", "나준호"]
@@ -258,7 +258,7 @@ def issue_edit(request):
         comments = request.GET.get("comments")
         nl = "\n"
         kakao_msg = f"댓글 : {comments} {nl}내용 : {detail}({date})"
-        user_views.kakao_sending(request, kakao_msg, when, writer)
+        # user_views.kakao_sending(request, kakao_msg, when, writer)
         comments = f"[{name}] {comments} ({when})***"
         comments = comment + comments
 
