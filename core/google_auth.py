@@ -1,7 +1,7 @@
 import gspread
 import os
 from oauth2client.service_account import ServiceAccountCredentials
-from config.settings import DEBUG
+from config.settings import SERVER
 
 
 def get_google():
@@ -11,11 +11,11 @@ def get_google():
         "https://www.googleapis.com/auth/drive",
     ]
 
-    if DEBUG:
+    if SERVER == "l":
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             "./creden/google-credentials.json", scope
         )
-    else:
+    elif SERVER == "s":
         json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
         credentials = ServiceAccountCredentials.from_json_keyfile_name(json, scope)
 
