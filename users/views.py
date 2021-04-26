@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
 from . import forms, models, apps
 from django.shortcuts import render
-from config.settings import DEBUG
+from config.settings import SERVER
 
 # 로그인 할 때, access_token을 받는다. 클로져로 넘겨서 사용하는건 되는데
 # 나는 다른 py파일인 issues.view.py에서 access_token을 인자로 받는 함수를 실행시켜야 한다.
@@ -17,9 +17,9 @@ from config.settings import DEBUG
 # 로그인시 발급된 access_token을 따로 저장해두었다가 사용하는 법 (근데 이건 6시간후 expire됨)
 # refresh token을 이용해서 계속 갱신해주는 법
 
-if DEBUG:
+if SERVER == "l":
     root_url = "http://127.0.0.1:8000/"
-else:
+elif SERVER == "s":
     # root_url = "https://hpdjango.herokuapp.com/"
     root_url = "https://hpdjango.herokuapp.com/"
 

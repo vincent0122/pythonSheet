@@ -10,7 +10,7 @@ from users import models as user_models
 from users import views as user_views
 from . import models, forms, apps
 from datetime import datetime
-from config.settings import DEBUG
+from config.settings import SERVER
 
 
 load_dotenv()
@@ -20,9 +20,9 @@ airtable = Airtable(base_key, "dataBase", api_key)
 air_view = os.getenv("AIR_VIEW")
 
 
-if DEBUG:
+if SERVER == "l":
     root_url = "http://127.0.0.1:8000/"
-else:
+elif SERVER == "s":
     root_url = "https://hpdjango.herokuapp.com/"
 
 import_export = ["임진석", "심동현", "임진아", "진석"]
